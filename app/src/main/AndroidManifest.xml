@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.kumabites.mm">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".moneymanagement.DebtMain"></activity>
+        <activity android:name=".moneymanagement.CreateUser.NewUser" />
+        <activity android:name=".moneymanagement.Delete.DeleteDebt" />
+        <activity android:name=".moneymanagement.Delete.confirmDelete" />
+        <activity android:name=".moneymanagement.MainPage" />
+        <activity android:name=".moneymanagement.Pay.PayDebt" />
+        <activity android:name=".moneymanagement.PayDebt" />
+        <activity android:name=".moneymanagement.ViewDebt" />
+        <activity android:name=".moneymanagement.CreateDebt.AddDebt" />
+        <activity android:name=".moneymanagement.NewUser" />
+        <activity android:name=".moneymanagement.MainActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

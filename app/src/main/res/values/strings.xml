@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">MoneyManagement</string>
+    <string name="register">Register New User</string>
+    <string name="login">Log in</string>
+    <string name="enterPassword">Enter Password</string>
+    <string name="enterUserName">Enter User Name</string>
+    <string name="rNewUser">Register New User</string>
+    <string name="goBack">Go Back</string>
+    <string name="dName">Name Of Debt</string>
+    <string name="amountD">Amount Of Debt</string>
+    <string name="saveD">Save Debt</string>
+    <string name="repaymentAmount">Repayment Amount</string>
+    <string name="repay">Repay</string>
+    <string name="selectDelete">Select the name of the debt you want to delete</string>
+    <string name="confirm">Confirm</string>
+    <string name="exit">Exit</string>
+    <string name="logOut">Log Out</string>
+    <string name="pay">Pay</string>
+    <string name="confirmPayment">Select name of debt to pay</string>
+    <string name="deleteAll">Clear All Data</string>
+</resources>

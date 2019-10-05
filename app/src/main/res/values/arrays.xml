@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="credir" />
+    <string-array
+        name="debt_catergory">
+        <item>Credit Cards</item>
+        <item>Bank Loan</item>
+        <item>Personal Loan</item>
+        <item>Household Bills</item>
+        <item>Mobile Phone</item>
+        <item>Overdraft</item>
+        <item>Tax</item>
+    </string-array>
+</resources>
