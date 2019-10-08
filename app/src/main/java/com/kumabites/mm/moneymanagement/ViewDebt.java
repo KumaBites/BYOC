@@ -2,13 +2,14 @@ package com.kumabites.mm.moneymanagement;
 
 import MMENTITY.Debt;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+
 
 import com.kumabites.mm.R;
 
@@ -16,16 +17,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewDebt extends AppCompatActivity {
-    ListView viewDebt;
+
     private ArrayList<String> stringDebt = new ArrayList<>();
     private String debtName, debtAmount, debtPaid, debtRemaining, debtCategory;
-
+    ViewRecyclerView adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_debt);
-        viewDebt = (ListView) findViewById(R.id.viewDebt);
+        RecyclerView viewRecycler = (RecyclerView) findViewById(R.id.viewRec);
         List<Debt> getAllDebtList = MainActivity.appDatabase.debtDao().getAll(CurrentUser.getUsername());
+
         for (Debt debt : getAllDebtList) {
             debtName = debt.getDebt_name();
             stringDebt.add("Debt Name: " + debtName);
@@ -40,9 +42,10 @@ public class ViewDebt extends AppCompatActivity {
             stringDebt.add("");
         }
 
+        viewRecycler.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new ViewRecyclerView(this, stringDebt);
 
-        ArrayAdapter viewDebtAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, stringDebt);
-        viewDebt.setAdapter(viewDebtAdapter);
+        viewRecycler.setAdapter(adapter);
 
 
     }

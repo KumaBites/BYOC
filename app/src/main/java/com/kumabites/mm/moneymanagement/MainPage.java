@@ -44,7 +44,7 @@ public class MainPage extends AppCompatActivity {
         mainArrayList.add("View Debt");
         mainArrayList.add("Delete Debt");
         mainArrayList.add("Pay Debt");
-        mainArrayList.add("Debt Main");
+
 
 
         //Creates intents to use when item selected form the list
@@ -52,14 +52,14 @@ public class MainPage extends AppCompatActivity {
         final Intent viewD = new Intent(this,ViewDebt.class);
         final Intent delD = new Intent(this, DeleteDebt.class);
         final Intent payD = new Intent(this, PayDebt.class);
-        final Intent DebtD = new Intent (this, DebtMain.class);
+
 
         //store string inside variables to be compared later with onClicklistener
         addDebt = "Add Debt";
         viewDebt = "View Debt";
         deleteDebt = "Delete Debt";
         payDebt = "Pay Debt";
-        debtMain = "Debt Main";
+
 
 
 
@@ -83,15 +83,12 @@ public class MainPage extends AppCompatActivity {
                 }
                 else if (position.equals(deleteDebt)){
                     startActivity(delD);
-                        finish();}
+                    finish();}
                 else if(position.equals(payDebt)){
                     startActivity(payD);
                     finish();
                 }
-                else if(position.equals(debtMain)){
-                    startActivity(DebtD);
-                    finish();
-                }
+
             }
 
         });
@@ -112,7 +109,3 @@ public class MainPage extends AppCompatActivity {
     }
 
 }
-
-
-
-

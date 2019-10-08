@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MoneyManagement</string>
+    <string name="app_name">MoneyMatters</string>
     <string name="register">Register New User</string>
     <string name="login">Log in</string>
     <string name="enterPassword">Enter Password</string>
