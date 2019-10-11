@@ -19,9 +19,10 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private EditText user;
     private EditText pass;
+    private String userid, passid, oldUser,oldPass, oldU,oldP;
 
 
-public static AppDatabase appDatabase;
+    public static AppDatabase appDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +40,7 @@ public static AppDatabase appDatabase;
     public String getOUser(List<User> oldUserList) {
 
         for (User user : oldUserList) {
-            String userid = user.getUser();
+            userid = user.getUser();
             return userid;
         }
     return null;}
@@ -47,7 +48,7 @@ public static AppDatabase appDatabase;
     public String getOPass(List<User> oldUserList) {
 
         for (User user : oldUserList) {
-            String passid = user.getPassword();
+            passid = user.getPassword();
             return passid;
         }
         return null;
@@ -83,6 +84,7 @@ public static AppDatabase appDatabase;
         System.exit(0);
     }
 
+    //deletes all data from database
     public void nuketable(View view){
         List<User> check = MainActivity.appDatabase.userDao().getAnyUser();
         if(check.isEmpty())
@@ -92,16 +94,19 @@ public static AppDatabase appDatabase;
 
         Toast.makeText(getBaseContext(),"All Data Deleted!!",Toast.LENGTH_SHORT).show();
     }}
+    //checks the input to see if user is registered
     public void oldUser(View view) {
-        String oldUser = user.getText().toString();
-        String oldPass = pass.getText().toString();
+        oldUser = user.getText().toString();
+        oldPass = pass.getText().toString();
         List<User> getOldUser = appDatabase.userDao().findUser(oldUser, oldPass);
-        String oldU = getOUser(getOldUser);
-        String oldP = getOPass(getOldUser);
+        oldU = getOUser(getOldUser);
+        oldP = getOPass(getOldUser);
         userCheck(oldU,oldUser,oldP,oldPass);
 
 
     }
+
+
 }
 
 

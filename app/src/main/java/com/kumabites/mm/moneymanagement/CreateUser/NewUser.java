@@ -17,17 +17,16 @@ import com.kumabites.mm.moneymanagement.MainActivity;
 import java.util.List;
 
 public class NewUser extends AppCompatActivity {
-    private EditText user, pass;
-private String userNew, passNew;
+    private EditText userInput, passInput;
+    private String userNew, passNew;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_user);
 
-        user = (EditText) findViewById(R.id.UserText);
-        pass = (EditText) findViewById(R.id.PassText);
-         userNew = user.getText().toString();
-         passNew = pass.getText().toString();
+        userInput = (EditText) findViewById(R.id.UserText);
+        passInput = (EditText) findViewById(R.id.PassText);
+
 
     }
 
@@ -38,10 +37,15 @@ private String userNew, passNew;
         finish();
 
     }
-    public void checkUser (View view){ singleUser(userNew);}
+    public void checkUser (View view){
+        userNew = userInput.getText().toString();
+        singleUser(userNew);}
+
     public void singleUser(String user) {
         List<User> oneUser = MainActivity.appDatabase.userDao().findUser(user);
         if (oneUser.isEmpty()) {
+            userNew = userInput.getText().toString();
+            passNew = passInput.getText().toString();
 
             User newUser = new User();
             newUser.setUser(userNew);

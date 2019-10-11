@@ -37,17 +37,15 @@ public class AddDebt extends AppCompatActivity {
 
     //Stores new debt
     public void addDebt(View view) {
-
         checkName = debtName.getText().toString();
         checkAmount = debtAmount.getText().toString();
-       booleanCheck = Pattern.matches("\\d", checkAmount);
+       booleanCheck = Pattern.matches("^[0-9]+$", checkAmount);
 
 
         if (checkName.isEmpty() || booleanCheck == false) {
             Toast.makeText(getBaseContext(), "A field is wrong!", Toast.LENGTH_SHORT).show();
-            Intent wrong = new Intent(this, AddDebt.class);
-            startActivity(wrong);
-            finish();
+            debtName.setText("");
+            debtAmount.setText("");
         } else{
             cSpinner = catergory.getSelectedItem().toString();
             String DN = debtName.getText().toString();
