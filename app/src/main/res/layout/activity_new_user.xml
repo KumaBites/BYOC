@@ -4,18 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateUser.NewUser">
+    tools:context=".moneymanagement.CreateUser.NewUser">
 
     <Button
         android:id="@+id/Save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="270dp"
-        android:layout_marginLeft="26dp"
-        android:layout_marginStart="26dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="72dp"
         android:onClick="checkUser"
-        android:text="@string/register"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/saveNewUser"
         app:layout_constraintStart_toStartOf="@+id/PassText"
         app:layout_constraintTop_toBottomOf="@+id/PassText" />
 
@@ -23,53 +22,46 @@
         android:id="@+id/GoBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="37dp"
-        android:layout_marginLeft="28dp"
-        android:layout_marginStart="28dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
         android:onClick="back"
         android:text="@string/goBack"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/UserText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="53dp"
+        android:layout_marginTop="188dp"
         android:ems="10"
         android:hint="@string/enterUserName"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/PassText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/PassText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="66dp"
         android:ems="10"
         android:hint="@string/enterPassword"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/Save"
-        app:layout_constraintStart_toStartOf="@+id/UserText"
-        app:layout_constraintTop_toBottomOf="@+id/UserText" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="578dp"
-        android:layout_marginEnd="41dp"
-        android:layout_marginLeft="41dp"
-        android:layout_marginRight="41dp"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="36dp"
-        android:text="@string/rNewUser"
-        app:layout_constraintBottom_toTopOf="@+id/GoBack"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:text="@string/register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

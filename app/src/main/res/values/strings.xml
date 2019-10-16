@@ -18,4 +18,6 @@
     <string name="pay">Pay</string>
     <string name="confirmPayment">Select name of debt to pay</string>
     <string name="deleteAll">Clear All Data</string>
+    <string name="newUser">Please Enter New User Details</string>
+    <string name="saveNewUser">Save New User</string>
 </resources>

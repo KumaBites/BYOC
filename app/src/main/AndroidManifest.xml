@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".moneymanagement.Pay.confirmPay"/>
+        <activity android:name=".moneymanagement.Splash"></activity>
+        <activity android:name=".moneymanagement.Pay.confirmPay" />
         <activity android:name=".moneymanagement.CreateUser.NewUser" />
         <activity android:name=".moneymanagement.Delete.DeleteDebt" />
         <activity android:name=".moneymanagement.Delete.confirmDelete" />
@@ -19,7 +20,6 @@
         <activity android:name=".moneymanagement.CreateDebt.AddDebt" />
         <activity android:name=".moneymanagement.NewUser" />
         <activity android:name=".moneymanagement.MainActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
