@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Pay.confirmPay">
+    tools:context=".moneymanagement.Pay.confirmPay">
+
 
     <Button
         android:id="@+id/goBack"
@@ -22,41 +23,59 @@
         android:id="@+id/button7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="324dp"
-        android:onClick="payDebt"
+        android:layout_marginBottom="193dp"
+
+        android:onClick="confirmedPay"
         android:text="@string/pay"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/confirmPay" />
+        app:layout_constraintTop_toBottomOf="@+id/debtName" />
 
     <EditText
         android:id="@+id/debtName"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="46dp"
-        android:layout_marginEnd="26dp"
-        android:layout_marginLeft="26dp"
-        android:layout_marginRight="26dp"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginBottom="317dp"
+        android:layout_marginEnd="38dp"
+        android:layout_marginLeft="38dp"
+        android:layout_marginRight="38dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="66dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/confirmPay"
+        app:layout_constraintBottom_toTopOf="@+id/button7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/confirmPay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="132dp"
-        android:layout_marginEnd="58dp"
-        android:layout_marginRight="58dp"
+        android:layout_width="248dp"
+        android:layout_height="67dp"
+        android:layout_marginBottom="240dp"
+        android:layout_marginEnd="65dp"
+        android:layout_marginLeft="65dp"
+        android:layout_marginRight="65dp"
+        android:layout_marginStart="65dp"
         android:ems="10"
         android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/button7"
-        app:layout_constraintEnd_toEndOf="@+id/debtName"
+        app:layout_constraintBottom_toTopOf="@+id/goBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/confirmName" />
+
+    <EditText
+        android:id="@+id/confirmName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="62dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintBottom_toTopOf="@+id/confirmPay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.525"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/debtName" />
 </androidx.constraintlayout.widget.ConstraintLayout>

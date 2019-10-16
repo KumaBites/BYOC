@@ -1,10 +1,12 @@
 package com.kumabites.mm.moneymanagement;
 
 import MMENTITY.User;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -25,12 +27,16 @@ public class MainActivity extends AppCompatActivity {
     public static AppDatabase appDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
          user = (EditText)findViewById(R.id.userText);
          pass =(EditText)findViewById(R.id.passwordText);
         appDatabase = Room.databaseBuilder(getApplicationContext(),AppDatabase.class,"userdb").allowMainThreadQueries().fallbackToDestructiveMigration().build();
     }
+
     public void registerNew(View view){
         Intent rIntent = new Intent(this, NewUser.class);
         startActivity(rIntent);
@@ -81,19 +87,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void exit(View view){
-        System.exit(0);
+        confirmLogOutDialog();
     }
 
     //deletes all data from database
     public void nuketable(View view){
-        List<User> check = MainActivity.appDatabase.userDao().getAnyUser();
-        if(check.isEmpty())
-        {Toast.makeText(getBaseContext(),"There are no users to delete!",Toast.LENGTH_SHORT).show();}
-        else{
-        appDatabase.clearAllTables();
-
-        Toast.makeText(getBaseContext(),"All Data Deleted!!",Toast.LENGTH_SHORT).show();
-    }}
+        confirmDeleteDialog();
+}
     //checks the input to see if user is registered
     public void oldUser(View view) {
         oldUser = user.getText().toString();
@@ -105,7 +105,58 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    private void confirmDeleteDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Confirm Delete Action!");
+        builder.setMessage("You are about to delete all records of database. Do you really want to proceed ?");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getApplicationContext(), "You've choosen to delete all records", Toast.LENGTH_SHORT).show();
+                List<User> check = MainActivity.appDatabase.userDao().getAnyUser();
+                if(check.isEmpty())
+                {Toast.makeText(getBaseContext(),"There are no users to delete!",Toast.LENGTH_SHORT).show();}
+                else{
+                    appDatabase.clearAllTables();
 
+                    Toast.makeText(getBaseContext(),"All Data Deleted!!",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getApplicationContext(), "You've changed your mind to delete all records", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        builder.show();
+    }
+
+    private void confirmLogOutDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Confirm Log Out Action");
+        builder.setMessage("You are about to exit the app. Do you really want to proceed ?");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getApplicationContext(), "You've logged out!", Toast.LENGTH_SHORT).show();
+                System.exit(0);
+            }
+        });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getApplicationContext(), "You've changed your mind to logged out", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        builder.show();
+    }
 
 }
 
