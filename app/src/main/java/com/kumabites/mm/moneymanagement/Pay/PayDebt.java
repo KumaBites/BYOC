@@ -1,8 +1,5 @@
 package com.kumabites.mm.moneymanagement.Pay;
 
-import MMENTITY.Debt;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,9 +14,11 @@ import com.kumabites.mm.moneymanagement.CurrentUser;
 import com.kumabites.mm.moneymanagement.MainActivity;
 import com.kumabites.mm.moneymanagement.MainPage;
 
-
 import java.util.ArrayList;
 import java.util.List;
+
+import MMENTITY.Debt;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class PayDebt extends AppCompatActivity {
     ListView viewDebt;
@@ -31,7 +30,7 @@ public class PayDebt extends AppCompatActivity {
         setContentView(R.layout.activity_pay_debt);
         final Intent payDebt = new Intent(this, confirmPay.class);
 
-        viewDebt = (ListView) findViewById(R.id.payList);
+        viewDebt = findViewById(R.id.payList);
         List<Debt> getAllDebtList = MainActivity.appDatabase.debtDao().getAll(CurrentUser.getUsername());
         for(Debt debt : getAllDebtList)
         {

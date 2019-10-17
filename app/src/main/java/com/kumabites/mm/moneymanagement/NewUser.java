@@ -1,8 +1,5 @@
 package com.kumabites.mm.moneymanagement;
 
-import MMENTITY.User;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +8,9 @@ import android.widget.Toast;
 
 import com.kumabites.mm.R;
 
+import MMENTITY.User;
+import androidx.appcompat.app.AppCompatActivity;
+
 public class NewUser extends AppCompatActivity {
 private EditText user, pass;
     @Override
@@ -18,8 +18,8 @@ private EditText user, pass;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_user);
 
-        user = (EditText)findViewById(R.id.UserText);
-        pass = (EditText)findViewById(R.id.PassText);
+        user = findViewById(R.id.UserText);
+        pass = findViewById(R.id.PassText);
     }
 
     public void back(View back) {

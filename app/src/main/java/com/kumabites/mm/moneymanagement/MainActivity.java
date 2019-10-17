@@ -1,10 +1,5 @@
 package com.kumabites.mm.moneymanagement;
 
-import MMENTITY.User;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
-
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +12,11 @@ import com.kumabites.mm.R;
 import com.kumabites.mm.moneymanagement.CreateUser.NewUser;
 
 import java.util.List;
+
+import MMENTITY.User;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 public class MainActivity extends AppCompatActivity {
     private EditText user;
@@ -32,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-         user = (EditText)findViewById(R.id.userText);
-         pass =(EditText)findViewById(R.id.passwordText);
+         user = findViewById(R.id.userText);
+         pass = findViewById(R.id.passwordText);
         appDatabase = Room.databaseBuilder(getApplicationContext(),AppDatabase.class,"userdb").allowMainThreadQueries().fallbackToDestructiveMigration().build();
     }
 

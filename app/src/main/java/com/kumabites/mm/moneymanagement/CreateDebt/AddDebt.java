@@ -1,12 +1,9 @@
 package com.kumabites.mm.moneymanagement.CreateDebt;
 
-import MMENTITY.Debt;
-import androidx.appcompat.app.AppCompatActivity;
-import java.util.regex.*;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.view.View;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,8 +13,11 @@ import com.kumabites.mm.moneymanagement.CurrentUser;
 import com.kumabites.mm.moneymanagement.MainActivity;
 import com.kumabites.mm.moneymanagement.MainPage;
 
-
 import java.util.List;
+import java.util.regex.Pattern;
+
+import MMENTITY.Debt;
+import androidx.appcompat.app.AppCompatActivity;
 
 
 public class AddDebt extends AppCompatActivity {
@@ -29,9 +29,9 @@ public class AddDebt extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_debt);
-   catergory = (Spinner)findViewById(R.id.cSpinner);
-        debtName = (TextView) findViewById(R.id.dName);
-        debtAmount = (TextView) findViewById(R.id.amountDebt);
+   catergory = findViewById(R.id.cSpinner);
+        debtName = findViewById(R.id.dName);
+        debtAmount = findViewById(R.id.amountDebt);
 
     }
 

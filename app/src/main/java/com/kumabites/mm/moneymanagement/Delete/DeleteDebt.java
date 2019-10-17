@@ -1,8 +1,5 @@
 package com.kumabites.mm.moneymanagement.Delete;
 
-import MMENTITY.Debt;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,9 +14,11 @@ import com.kumabites.mm.moneymanagement.CurrentUser;
 import com.kumabites.mm.moneymanagement.MainActivity;
 import com.kumabites.mm.moneymanagement.MainPage;
 
-
 import java.util.ArrayList;
 import java.util.List;
+
+import MMENTITY.Debt;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class DeleteDebt extends AppCompatActivity {
     ListView viewDebt;
@@ -30,7 +29,7 @@ public class DeleteDebt extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete_debt);
 
-        viewDebt = (ListView) findViewById(R.id.viewDebt);
+        viewDebt = findViewById(R.id.viewDebt);
         List<Debt> getAllDebtList = MainActivity.appDatabase.debtDao().getAll(CurrentUser.getUsername());
         for(Debt debt : getAllDebtList)
         {

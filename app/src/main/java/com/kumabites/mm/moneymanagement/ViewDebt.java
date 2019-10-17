@@ -1,20 +1,19 @@
 package com.kumabites.mm.moneymanagement;
 
-import MMENTITY.Debt;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-
 import com.kumabites.mm.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import MMENTITY.Debt;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ViewDebt extends AppCompatActivity {
 
@@ -25,7 +24,7 @@ public class ViewDebt extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_debt);
-        RecyclerView viewRecycler = (RecyclerView) findViewById(R.id.viewRec);
+        RecyclerView viewRecycler = findViewById(R.id.viewRec);
         List<Debt> getAllDebtList = MainActivity.appDatabase.debtDao().getAll(CurrentUser.getUsername());
 
         for (Debt debt : getAllDebtList) {

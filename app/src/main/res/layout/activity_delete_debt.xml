@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Delete.DeleteDebt">
+    tools:context=".moneymanagement.Delete.DeleteDebt">
 
     <Button
         android:id="@+id/button6"

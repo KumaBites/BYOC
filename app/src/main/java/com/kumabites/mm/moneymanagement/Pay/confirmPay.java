@@ -1,10 +1,5 @@
 package com.kumabites.mm.moneymanagement.Pay;
 
-import MMENTITY.Debt;
-import MMENTITY.User;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,8 +11,11 @@ import android.widget.Toast;
 import com.kumabites.mm.R;
 import com.kumabites.mm.moneymanagement.MainActivity;
 
-
 import java.util.List;
+
+import MMENTITY.Debt;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class confirmPay extends AppCompatActivity {
     private String newDebtName;
@@ -28,9 +26,9 @@ public class confirmPay extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_pay);
-        debtName = (TextView) findViewById(R.id.debtName);
-        confirmPay= (TextView)findViewById(R.id.confirmPay);
-        payDebt = (TextView)findViewById(R.id.confirmName);
+        debtName = findViewById(R.id.debtName);
+        confirmPay= findViewById(R.id.confirmPay);
+        payDebt = findViewById(R.id.confirmName);
         Intent confirm = getIntent();
         newDebtName = confirm.getStringExtra("Debt Name");
         debtName.setText("How much are you paying off ");
