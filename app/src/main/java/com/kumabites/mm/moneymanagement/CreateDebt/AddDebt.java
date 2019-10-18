@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.kumabites.mm.R;
 import com.kumabites.mm.moneymanagement.CurrentUser;
 import com.kumabites.mm.moneymanagement.MainActivity;
-import com.kumabites.mm.moneymanagement.MainPage;
+import com.kumabites.mm.moneymanagement.MainPage.MainPage;
 
 import java.util.List;
 import java.util.regex.Pattern;

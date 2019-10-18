@@ -1,4 +1,4 @@
-package com.kumabites.mm.moneymanagement;
+package com.kumabites.mm.moneymanagement.MainPage;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;

@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.kumabites.mm.R;
 import com.kumabites.mm.moneymanagement.CreateUser.NewUser;
+import com.kumabites.mm.moneymanagement.MainPage.MainPage;
 
 import java.util.List;
 
@@ -143,7 +144,6 @@ public class MainActivity extends AppCompatActivity {
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getApplicationContext(), "You've logged out!", Toast.LENGTH_SHORT).show();
                 System.exit(0);
             }
         });

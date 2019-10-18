@@ -1,4 +1,4 @@
-package com.kumabites.mm.moneymanagement;
+package com.kumabites.mm.moneymanagement.ViewDebt;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.kumabites.mm.R;
+import com.kumabites.mm.moneymanagement.CurrentUser;
+import com.kumabites.mm.moneymanagement.MainActivity;
+import com.kumabites.mm.moneymanagement.MainPage.MainPage;
 
 import java.util.ArrayList;
 import java.util.List;
