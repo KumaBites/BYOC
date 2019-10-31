@@ -4,10 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.kumabites.mm.R;
 import com.kumabites.mm.moneymanagement.CurrentUser;
@@ -19,64 +16,48 @@ import java.util.List;
 
 import MMENTITY.Debt;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class PayDebt extends AppCompatActivity {
     ListView viewDebt;
     private ArrayList<String> stringDebt = new ArrayList<>();
-    private String debtName,debtAmount, debtPaid,debtRemaining,checkDebtName,debtCategory;
+    private String debtName,debtCategory,newDebtAmount, newDebtRemaining,newDebtPaid;
+    private int debtAmount, debtPaid, debtRemaining;
+    private RecyclerView mRecyclerView;
+    private com.kumabites.mm.moneymanagement.Pay.PayDebtAdapter mAdapter;
+    private List<PayModel> debtListArray;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay_debt);
-        final Intent payDebt = new Intent(this, confirmPay.class);
-
-        viewDebt = findViewById(R.id.payList);
+        mRecyclerView = findViewById(R.id.payViewRecycler);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        debtListArray = new ArrayList<>();
         List<Debt> getAllDebtList = MainActivity.appDatabase.debtDao().getAll(CurrentUser.getUsername());
-        for(Debt debt : getAllDebtList)
-        {
+
+        for (Debt debt : getAllDebtList) {
             debtName = debt.getDebt_name();
-            stringDebt.add("Debt Name: "+debtName);
-            debtAmount = String.valueOf(debt.getDebt_amount());
-            stringDebt.add("Debt Amount: "+(debtAmount));
-            debtPaid = String.valueOf((debt.getAmount_paid()));
-            stringDebt.add("How much debt Paid: "+(debtPaid));
-            debtRemaining = String.valueOf(debt.getRemaining());
-            stringDebt.add("Debt Remaining: "+(debtRemaining));
+            debtAmount = debt.getDebt_amount();
+            newDebtAmount = String.valueOf(debtAmount);
+            debtPaid = debt.getAmount_paid();
+            newDebtPaid =String.valueOf(debtPaid);
+            debtRemaining = debt.getRemaining();
+            newDebtRemaining =String.valueOf(debtRemaining);
+            newDebtAmount =String.valueOf(debtRemaining);
             debtCategory = debt.getCategoty();
-            stringDebt.add("Debt Category is: " + debtCategory);
-            stringDebt.add("");
+
+            debtListArray.add(new PayModel(debtName,newDebtAmount,newDebtRemaining,debtCategory,CurrentUser.getUsername(),newDebtPaid));
+
         }
-        ArrayAdapter viewDebtAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, stringDebt);
-        viewDebt.setAdapter(viewDebtAdapter);
-        viewDebt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String position = stringDebt.get(i);
-                position = position.substring(11);
-                position = position.trim();
-                List<Debt> checkDebtInput = MainActivity.appDatabase.debtDao().getDebt(position);
-                for(Debt debt : checkDebtInput)
-                {
-                    checkDebtName = debt.getDebt_name();
+        debtListArray.add(new PayModel("wr","78","81","rgeg","rrr","85"));
 
-                    if (position.equals(checkDebtName)) {
-                        payDebt.putExtra("Debt Name",position);
-                        startActivity(payDebt);
-                        finish();
-
-                    }
-                    else if (position == null){
-                        Toast.makeText(getBaseContext(), "Sorry can not find debt!", Toast.LENGTH_SHORT).show();
-                    }
-                    else {Toast.makeText(getBaseContext(), "Sorry can not find debt!", Toast.LENGTH_SHORT).show();}
-
-                }
-            }
+        mAdapter = new com.kumabites.mm.moneymanagement.Pay.PayDebtAdapter(debtListArray, this);
+        mRecyclerView.setAdapter(mAdapter);
 
 
-        });
     }
-
 
 
 
