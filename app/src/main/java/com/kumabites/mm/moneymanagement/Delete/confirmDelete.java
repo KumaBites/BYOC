@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import com.kumabites.mm.R;
 import com.kumabites.mm.moneymanagement.MainActivity;
-import com.kumabites.mm.moneymanagement.Pay.PayDebt;
 
 import java.util.List;
 
@@ -19,7 +18,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class confirmDelete extends AppCompatActivity {
-private String confirmDelete, deleteName,deleteDebtName;
+private String deleteName,deleteDebtName;
 private TextView confirmText;
 
     @Override
@@ -71,7 +70,7 @@ private TextView confirmText;
         builder.show();
     }
     public void back(View back) {
-        final Intent goBack = new Intent(this, PayDebt.class);
+        final Intent goBack = new Intent(this, DeleteDebt.class);
         startActivity(goBack);
         finish();
 

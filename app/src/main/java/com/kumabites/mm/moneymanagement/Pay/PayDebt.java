@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ListView;
 
 import com.kumabites.mm.R;
 import com.kumabites.mm.moneymanagement.CurrentUser;
@@ -20,8 +19,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class PayDebt extends AppCompatActivity {
-    ListView viewDebt;
-    private ArrayList<String> stringDebt = new ArrayList<>();
+
+
     private String debtName,debtCategory,newDebtAmount, newDebtRemaining,newDebtPaid;
     private int debtAmount, debtPaid, debtRemaining;
     private RecyclerView mRecyclerView;
@@ -40,18 +39,21 @@ public class PayDebt extends AppCompatActivity {
         for (Debt debt : getAllDebtList) {
             debtName = debt.getDebt_name();
             debtAmount = debt.getDebt_amount();
+
             newDebtAmount = String.valueOf(debtAmount);
+
             debtPaid = debt.getAmount_paid();
             newDebtPaid =String.valueOf(debtPaid);
+
             debtRemaining = debt.getRemaining();
             newDebtRemaining =String.valueOf(debtRemaining);
-            newDebtAmount =String.valueOf(debtRemaining);
+
             debtCategory = debt.getCategoty();
 
-            debtListArray.add(new PayModel(debtName,newDebtAmount,newDebtRemaining,debtCategory,CurrentUser.getUsername(),newDebtPaid));
+            debtListArray.add(new PayModel(debtName,newDebtAmount,newDebtRemaining,debtCategory,newDebtPaid));
 
         }
-        debtListArray.add(new PayModel("wr","78","81","rgeg","rrr","85"));
+
 
         mAdapter = new com.kumabites.mm.moneymanagement.Pay.PayDebtAdapter(debtListArray, this);
         mRecyclerView.setAdapter(mAdapter);

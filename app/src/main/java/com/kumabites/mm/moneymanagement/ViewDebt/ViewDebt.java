@@ -9,6 +9,7 @@ import com.kumabites.mm.R;
 import com.kumabites.mm.moneymanagement.CurrentUser;
 import com.kumabites.mm.moneymanagement.MainActivity;
 import com.kumabites.mm.moneymanagement.MainPage.MainPage;
+import com.kumabites.mm.moneymanagement.Pay.PayModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,50 +20,61 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ViewDebt extends AppCompatActivity {
+    private RecyclerView viewDebt;
+    private List<PayModel> debtListArray;
+    private String debtName,debtCategory,newDebtAmount, newDebtRemaining,newDebtPaid;
+    private int debtAmount, debtPaid, debtRemaining;
+    private com.kumabites.mm.moneymanagement.Delete.DeleteDebtAdapter mAdapter;
 
-    private ArrayList<String> stringDebt = new ArrayList<>();
-    private String debtName, debtAmount, debtPaid, debtRemaining, debtCategory;
-    ViewRecyclerView adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_debt);
-        RecyclerView viewRecycler = findViewById(R.id.viewRec);
+        viewDebt = findViewById(R.id.viewRecyclerView);
+        viewDebt.setLayoutManager(new LinearLayoutManager(this));
+        debtListArray = new ArrayList<>();
         List<Debt> getAllDebtList = MainActivity.appDatabase.debtDao().getAll(CurrentUser.getUsername());
-
         for (Debt debt : getAllDebtList) {
             debtName = debt.getDebt_name();
-            stringDebt.add("Debt Name: " + debtName);
-            debtAmount = String.valueOf(debt.getDebt_amount());
-            stringDebt.add("Debt Amount: " + (debtAmount));
-            debtPaid = String.valueOf((debt.getAmount_paid()));
-            stringDebt.add("How much debt Paid: " + (debtPaid));
-            debtRemaining = String.valueOf(debt.getRemaining());
-            stringDebt.add("Debt Remaining: " + (debtRemaining));
+            debtAmount = debt.getDebt_amount();
+
+            newDebtAmount = String.valueOf(debtAmount);
+
+            debtPaid = debt.getAmount_paid();
+            newDebtPaid =String.valueOf(debtPaid);
+
+            debtRemaining = debt.getRemaining();
+            newDebtRemaining =String.valueOf(debtRemaining);
+
             debtCategory = debt.getCategoty();
-            stringDebt.add("Debt Category is: " + debtCategory);
-            stringDebt.add("");
+
+            debtListArray.add(new PayModel(debtName,newDebtAmount,newDebtRemaining,debtCategory,newDebtPaid));
+
         }
 
-        viewRecycler.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ViewRecyclerView(this, stringDebt);
 
-        viewRecycler.setAdapter(adapter);
+        mAdapter = new com.kumabites.mm.moneymanagement.Delete.DeleteDebtAdapter(debtListArray, this);
+        viewDebt.setAdapter(mAdapter);
+
+
+
+
+
+
 
 
     }
+    @SuppressLint("MissingSuperCall")
+    @Override
+    public void onBackPressed()
+    {
 
-    public void goBack(View view) {
+    }
+
+    public void goBack(View view){
 
         Intent goBack = new Intent(this, MainPage.class);
         startActivity(goBack);
         finish();
     }
-
-    @SuppressLint("MissingSuperCall")
-    @Override
-    public void onBackPressed() {
-
-    }
-
 }

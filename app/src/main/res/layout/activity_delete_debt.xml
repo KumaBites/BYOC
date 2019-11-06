@@ -16,14 +16,13 @@
         android:onClick="goBack"
         android:text="@string/goBack"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewDebt" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/infoText"
         android:layout_width="402dp"
-        android:layout_height="74dp"
-        android:layout_marginBottom="18dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="14dp"
         android:layout_marginEnd="9dp"
         android:layout_marginLeft="9dp"
         android:layout_marginRight="9dp"
@@ -33,22 +32,23 @@
         android:inputType="textPersonName"
         android:text="@string/selectDelete"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/viewDebt"
+        app:layout_constraintBottom_toTopOf="@+id/deleteDebtRecycler"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ListView
-        android:id="@+id/viewDebt"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="31dp"
-        android:layout_marginEnd="3dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp"
-        android:layout_marginStart="3dp"
-        app:layout_constraintBottom_toTopOf="@+id/button6"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/deleteDebtRecycler"
+        android:layout_width="387dp"
+        android:layout_height="529dp"
+        android:layout_marginBottom="85dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/infoText" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
