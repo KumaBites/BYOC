@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity{
     private EditText user;
     private EditText pass;
     private String userid, passid, oldUser, oldPass, oldU, oldP;
-    private userDao mUserDao;
     private List<User> findAnyResult;
     AppDatabase appDatabase;
 
@@ -30,7 +29,6 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         appDatabase = AppDatabase.getDatabase(this);
-
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -120,8 +118,7 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(getApplicationContext(), "You've choosen to delete all records", Toast.LENGTH_SHORT).show();
-                mUserDao = appDatabase.userDao();
-                new FindUserAnyAsyncTask(mUserDao).execute();
+                new FindUserAnyAsyncTask().execute();
                 List<User> check = findAnyResult;
                 if (check.isEmpty()) {
                     Toast.makeText(getBaseContext(), "There are no users to delete!", Toast.LENGTH_SHORT).show();
@@ -167,17 +164,17 @@ public class MainActivity extends AppCompatActivity{
 //Supposed to run the check in the background and update the List<User> but I am getting null
 
     public class FindUserAnyAsyncTask extends AsyncTask<Void, Void, List<User>> {
-        private userDao mAsyncTaskDao;
         private List<User> rList;
-
+        private AppDatabase db;
+        
         FindUserAnyAsyncTask(userDao dao) {
-            mAsyncTaskDao = dao;
+            db = AppDatabase.getDatabase(MainActivity.this);
         }
 
         @Override
         protected List<User> doInBackground(final Void... params) {
-            rList = mAsyncTaskDao.getAnyUser();
-            this. rList;
+            rList = db.userDao().getAnyUser();
+            this.rList;
         }
         @Override
         protected void onPostExecute(List<User> result) {
