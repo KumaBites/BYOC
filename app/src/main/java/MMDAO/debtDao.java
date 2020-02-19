@@ -3,8 +3,6 @@ package MMDAO;
 import java.util.List;
 
 import MMENTITY.Debt;
-import MMENTITY.User;
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -17,6 +15,10 @@ public interface debtDao {
 
     @Query("UPDATE debt_table SET remaining= :remaining AND  amount_paid= :amount_p where debt_name LIKE :debt")
     void newUpdate(int remaining,int amount_p,String debt);
+
+    @Query("SELECT * FROM debt_table where debt_name LIKE :debt")
+    List<Debt>getSingleDebt(String debt);
+
 
 @Query("SELECT * FROM debt_table where user_name LIKE :user ")
     List<Debt>getAll(String user);
@@ -42,4 +44,6 @@ public interface debtDao {
 
     @Query("SELECT * from debt_table where debt_name LIKE :OldDebtName")
     List<Debt>getDebt(String OldDebtName);
+
+
 }

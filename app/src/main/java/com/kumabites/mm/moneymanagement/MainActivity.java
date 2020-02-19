@@ -1,43 +1,46 @@
 package com.kumabites.mm.moneymanagement;
 
-import MMENTITY.User;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
-
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.kumabites.mm.R;
-import com.kumabites.mm.moneymanagement.CreateUser.NewUser;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+import MMDAO.userDao;
+import MMENTITY.User;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity{
     private EditText user;
     private EditText pass;
-    private String userid, passid, oldUser,oldPass, oldU,oldP;
+    private String userid, passid, oldUser, oldPass, oldU, oldP;
+    private userDao mUserDao;
+    private List<User> findAnyResult;
+    AppDatabase appDatabase;
 
 
-    public static AppDatabase appDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        appDatabase = AppDatabase.getDatabase(this);
 
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-         user = (EditText)findViewById(R.id.userText);
-         pass =(EditText)findViewById(R.id.passwordText);
-        appDatabase = Room.databaseBuilder(getApplicationContext(),AppDatabase.class,"userdb").allowMainThreadQueries().fallbackToDestructiveMigration().build();
+        user = findViewById(R.id.userText);
+        pass = findViewById(R.id.passwordText);
+
+
     }
 
-    public void registerNew(View view){
+    public void registerNew(View view) {
         Intent rIntent = new Intent(this, NewUser.class);
         startActivity(rIntent);
         finish();
@@ -49,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
             userid = user.getUser();
             return userid;
         }
-    return null;}
+        return null;
+    }
 
     public String getOPass(List<User> oldUserList) {
 
@@ -60,19 +64,18 @@ public class MainActivity extends AppCompatActivity {
         return null;
     }
 
-    public void userCheck (String oldUser, String newUser, String oldPass, String newPass) {
+    public void userCheck(String oldUser, String newUser, String oldPass, String newPass) {
         Intent Main = new Intent(this, MainPage.class);
-        if (oldUser == null ||  oldPass == null){
+        if (oldUser == null || oldPass == null) {
             user.setText("");
             pass.setText("");
-            Toast.makeText(getBaseContext(), "Wrong details", Toast.LENGTH_SHORT).show();}
-        else if ( oldUser.equals(newUser)&& oldPass.equals(newPass)) {
-                CurrentUser.setUsername(oldUser);
-                startActivity(Main);
-                finish();
-                Toast.makeText(getBaseContext(), "Welcome " + oldUser, Toast.LENGTH_SHORT).show();
-            }
-        else {
+            Toast.makeText(getBaseContext(), "Wrong details", Toast.LENGTH_SHORT).show();
+        } else if (oldUser.equals(newUser) && oldPass.equals(newPass)) {
+            CurrentUser.setUsername(oldUser);
+            startActivity(Main);
+            finish();
+            Toast.makeText(getBaseContext(), "Welcome " + oldUser, Toast.LENGTH_SHORT).show();
+        } else {
             user.setText("");
             pass.setText("");
             Toast.makeText(getBaseContext(), "Wrong details", Toast.LENGTH_SHORT).show();
@@ -82,18 +85,19 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("MissingSuperCall")
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
 
     }
-    public void exit(View view){
+
+    public void exit(View view) {
         confirmLogOutDialog();
     }
 
     //deletes all data from database
-    public void nuketable(View view){
+    public void nuketable(View view) {
         confirmDeleteDialog();
-}
+    }
+
     //checks the input to see if user is registered
     public void oldUser(View view) {
         oldUser = user.getText().toString();
@@ -101,11 +105,13 @@ public class MainActivity extends AppCompatActivity {
         List<User> getOldUser = appDatabase.userDao().findUser(oldUser, oldPass);
         oldU = getOUser(getOldUser);
         oldP = getOPass(getOldUser);
-        userCheck(oldU,oldUser,oldP,oldPass);
+        userCheck(oldU, oldUser, oldP, oldPass);
 
 
     }
+
     private void confirmDeleteDialog() {
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Confirm Delete Action!");
         builder.setMessage("You are about to delete all records of database. Do you really want to proceed ?");
@@ -114,13 +120,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(getApplicationContext(), "You've choosen to delete all records", Toast.LENGTH_SHORT).show();
-                List<User> check = MainActivity.appDatabase.userDao().getAnyUser();
-                if(check.isEmpty())
-                {Toast.makeText(getBaseContext(),"There are no users to delete!",Toast.LENGTH_SHORT).show();}
-                else{
+                mUserDao = appDatabase.userDao();
+                new FindUserAnyAsyncTask(mUserDao).execute();
+                List<User> check = findAnyResult;
+                if (check.isEmpty()) {
+                    Toast.makeText(getBaseContext(), "There are no users to delete!", Toast.LENGTH_SHORT).show();
+                } else {
                     appDatabase.clearAllTables();
 
-                    Toast.makeText(getBaseContext(),"All Data Deleted!!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "All Data Deleted!!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -143,7 +151,6 @@ public class MainActivity extends AppCompatActivity {
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getApplicationContext(), "You've logged out!", Toast.LENGTH_SHORT).show();
                 System.exit(0);
             }
         });
@@ -157,7 +164,26 @@ public class MainActivity extends AppCompatActivity {
 
         builder.show();
     }
+//Supposed to run the check in the background and update the List<User> but I am getting null
 
+    public class FindUserAnyAsyncTask extends AsyncTask<Void, Void, List<User>> {
+        private userDao mAsyncTaskDao;
+        private List<User> rList;
+
+        FindUserAnyAsyncTask(userDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected List<User> doInBackground(final Void... params) {
+            rList = mAsyncTaskDao.getAnyUser();
+            this. rList;
+        }
+        @Override
+        protected void onPostExecute(List<User> result) {
+        }
+
+    }
 }
 
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Pay.PayDebt">
+    tools:context=".moneymanagement.PayDebt">
 
     <Button
         android:id="@+id/button5"
@@ -16,13 +16,13 @@
         android:onClick="goBack"
         android:text="@string/goBack"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/payViewRecycler" />
 
     <EditText
         android:id="@+id/editText"
         android:layout_width="329dp"
         android:layout_height="63dp"
-        android:layout_marginBottom="27dp"
         android:layout_marginEnd="38dp"
         android:layout_marginLeft="38dp"
         android:layout_marginRight="38dp"
@@ -31,23 +31,23 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="@string/confirmPayment"
-        app:layout_constraintBottom_toTopOf="@+id/payList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ListView
-        android:id="@+id/payList"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/payViewRecycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="19dp"
-        android:layout_marginEnd="33dp"
-        android:layout_marginLeft="33dp"
-        android:layout_marginRight="33dp"
-        android:layout_marginStart="33dp"
+        android:layout_marginBottom="17dp"
+        android:layout_marginEnd="37dp"
+        android:layout_marginLeft="37dp"
+        android:layout_marginRight="37dp"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="121dp"
         app:layout_constraintBottom_toTopOf="@+id/button5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

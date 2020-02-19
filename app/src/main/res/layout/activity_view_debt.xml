@@ -16,17 +16,18 @@
         android:onClick="goBack"
         android:text="@string/goBack"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewRecyclerView" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/viewRec"
+        android:id="@+id/viewRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="35dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginStart="7dp"
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toTopOf="@+id/viewRecButton"
         app:layout_constraintEnd_toEndOf="parent"

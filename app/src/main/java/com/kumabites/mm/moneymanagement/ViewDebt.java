@@ -1,66 +1,77 @@
 package com.kumabites.mm.moneymanagement;
 
-import MMENTITY.Debt;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
 
 import com.kumabites.mm.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewDebt extends AppCompatActivity {
+import MMENTITY.Debt;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-    private ArrayList<String> stringDebt = new ArrayList<>();
-    private String debtName, debtAmount, debtPaid, debtRemaining, debtCategory;
-    ViewRecyclerView adapter;
+public class ViewDebt extends AppCompatActivity {
+    private RecyclerView viewDebt;
+    private List<PayModel> debtListArray;
+    private String debtName,debtCategory,newDebtAmount, newDebtRemaining,newDebtPaid;
+    private int debtAmount, debtPaid, debtRemaining;
+    private DeleteDebtAdapter mAdapter;
+    final AppDatabase appDatabase = AppDatabase.getDatabase(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_debt);
-        RecyclerView viewRecycler = (RecyclerView) findViewById(R.id.viewRec);
-        List<Debt> getAllDebtList = MainActivity.appDatabase.debtDao().getAll(CurrentUser.getUsername());
-
+        viewDebt = findViewById(R.id.viewRecyclerView);
+        viewDebt.setLayoutManager(new LinearLayoutManager(this));
+        debtListArray = new ArrayList<>();
+        List<Debt> getAllDebtList = appDatabase.debtDao().getAll(CurrentUser.getUsername());
         for (Debt debt : getAllDebtList) {
             debtName = debt.getDebt_name();
-            stringDebt.add("Debt Name: " + debtName);
-            debtAmount = String.valueOf(debt.getDebt_amount());
-            stringDebt.add("Debt Amount: " + (debtAmount));
-            debtPaid = String.valueOf((debt.getAmount_paid()));
-            stringDebt.add("How much debt Paid: " + (debtPaid));
-            debtRemaining = String.valueOf(debt.getRemaining());
-            stringDebt.add("Debt Remaining: " + (debtRemaining));
+            debtAmount = debt.getDebt_amount();
+
+            newDebtAmount = String.valueOf(debtAmount);
+
+            debtPaid = debt.getAmount_paid();
+            newDebtPaid =String.valueOf(debtPaid);
+
+            debtRemaining = debt.getRemaining();
+            newDebtRemaining =String.valueOf(debtRemaining);
+
             debtCategory = debt.getCategoty();
-            stringDebt.add("Debt Category is: " + debtCategory);
-            stringDebt.add("");
+
+            debtListArray.add(new PayModel(debtName,newDebtAmount,newDebtRemaining,debtCategory,newDebtPaid));
+
         }
 
-        viewRecycler.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ViewRecyclerView(this, stringDebt);
 
-        viewRecycler.setAdapter(adapter);
+        mAdapter = new DeleteDebtAdapter(debtListArray, this);
+        viewDebt.setAdapter(mAdapter);
+
+
+
+
+
+
 
 
     }
+    @SuppressLint("MissingSuperCall")
+    @Override
+    public void onBackPressed()
+    {
 
-    public void goBack(View view) {
+    }
+
+    public void goBack(View view){
 
         Intent goBack = new Intent(this, MainPage.class);
         startActivity(goBack);
         finish();
     }
-
-    @SuppressLint("MissingSuperCall")
-    @Override
-    public void onBackPressed() {
-
-    }
-
 }

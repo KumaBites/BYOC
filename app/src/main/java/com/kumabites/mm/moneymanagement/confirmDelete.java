@@ -1,9 +1,4 @@
-package com.kumabites.mm.moneymanagement.Delete;
-
-import MMENTITY.Debt;
-import MMENTITY.User;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+package com.kumabites.mm.moneymanagement;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
@@ -14,21 +9,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kumabites.mm.R;
-import com.kumabites.mm.moneymanagement.MainActivity;
-import com.kumabites.mm.moneymanagement.Pay.PayDebt;
-
 
 import java.util.List;
 
-public class confirmDelete extends AppCompatActivity {
-private String confirmDelete, deleteName,deleteDebtName;
-private TextView confirmText;
+import MMENTITY.Debt;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
+public class confirmDelete extends AppCompatActivity {
+private String deleteName,deleteDebtName;
+private TextView confirmText;
+    final AppDatabase appDatabase = AppDatabase.getDatabase(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_delete);
-        confirmText = (TextView)findViewById(R.id.confirmD);
+        confirmText = findViewById(R.id.confirmD);
         Intent confirm = getIntent();
 
 
@@ -41,12 +37,12 @@ private TextView confirmText;
     }
     public void confirmD(){
 
-        List<Debt> getDeleteList = MainActivity.appDatabase.debtDao().getDebt(deleteName);
+        List<Debt> getDeleteList = appDatabase.debtDao().getDebt(deleteName);
         for(Debt debtDelete : getDeleteList){
             deleteDebtName = debtDelete.getDebt_name();
         }
         final Intent finishDelete = new Intent(this, DeleteDebt.class);
-        MainActivity.appDatabase.debtDao().deleteOne(deleteDebtName);
+        appDatabase.debtDao().deleteOne(deleteDebtName);
         Toast.makeText(this, "Successfully Deleted!!", Toast.LENGTH_SHORT).show();
         startActivity(finishDelete);
         finish();
@@ -73,7 +69,7 @@ private TextView confirmText;
         builder.show();
     }
     public void back(View back) {
-        final Intent goBack = new Intent(this, PayDebt.class);
+        final Intent goBack = new Intent(this, DeleteDebt.class);
         startActivity(goBack);
         finish();
 
