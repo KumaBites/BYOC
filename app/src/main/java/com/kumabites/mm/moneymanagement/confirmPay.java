@@ -1,4 +1,4 @@
-package com.kumabites.mm.moneymanagement.Pay;
+package com.kumabites.mm.moneymanagement;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
@@ -9,7 +9,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kumabites.mm.R;
-import com.kumabites.mm.moneymanagement.MainActivity;
 
 import java.util.List;
 
@@ -21,6 +20,7 @@ public class confirmPay extends AppCompatActivity {
     private String newDebtName;
     private TextView payDebt, confirmPay, debtName;
     private int pText, absolutePText, debtRemain, debtPay;
+    final AppDatabase appDatabase = AppDatabase.getDatabase(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +53,7 @@ public class confirmPay extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), "Incorrect details try again!", Toast.LENGTH_SHORT).show();
             } else {
                 absolutePText = Math.abs(pText);
-                List<Debt> getOldDebt = MainActivity.appDatabase.debtDao().getDebt(newDText);
+                List<Debt> getOldDebt = appDatabase.debtDao().getDebt(newDText);
 
                 for(Debt oldDebt : getOldDebt)
                 {
@@ -65,7 +65,7 @@ public class confirmPay extends AppCompatActivity {
                     debtPay = oldDebt.getAmount_paid();
                     debtPay = debtPay + pText;
                     oldDebt.setAmount_paid(debtPay);
-                    MainActivity.appDatabase.debtDao().updateDebt(oldDebt);
+                    appDatabase.debtDao().updateDebt(oldDebt);
 
                 }
 

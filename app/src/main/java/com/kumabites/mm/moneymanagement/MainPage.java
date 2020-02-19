@@ -1,4 +1,4 @@
-package com.kumabites.mm.moneymanagement.MainPage;
+package com.kumabites.mm.moneymanagement;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MainPage extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
-    private com.kumabites.mm.moneymanagement.MainPage.MainPageViewAdapter mAdapter;
+    private MainPageViewAdapter mAdapter;
     private List<DebtPayModel> debtListArray;
 
     @Override
@@ -39,7 +39,7 @@ public class MainPage extends AppCompatActivity {
 
 
         //set adapter to recyclerview
-        mAdapter = new com.kumabites.mm.moneymanagement.MainPage.MainPageViewAdapter(debtListArray,this);
+        mAdapter = new MainPageViewAdapter(debtListArray,this);
         mRecyclerView.setAdapter(mAdapter);
     }
 

@@ -1,4 +1,4 @@
-package com.kumabites.mm.moneymanagement.Pay;
+package com.kumabites.mm.moneymanagement;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -6,9 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.kumabites.mm.R;
-import com.kumabites.mm.moneymanagement.CurrentUser;
-import com.kumabites.mm.moneymanagement.MainActivity;
-import com.kumabites.mm.moneymanagement.MainPage.MainPage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +21,9 @@ public class PayDebt extends AppCompatActivity {
     private String debtName,debtCategory,newDebtAmount, newDebtRemaining,newDebtPaid;
     private int debtAmount, debtPaid, debtRemaining;
     private RecyclerView mRecyclerView;
-    private com.kumabites.mm.moneymanagement.Pay.PayDebtAdapter mAdapter;
+    private PayDebtAdapter mAdapter;
     private List<PayModel> debtListArray;
-
+    final AppDatabase appDatabase = AppDatabase.getDatabase(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +31,7 @@ public class PayDebt extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.payViewRecycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         debtListArray = new ArrayList<>();
-        List<Debt> getAllDebtList = MainActivity.appDatabase.debtDao().getAll(CurrentUser.getUsername());
+        List<Debt> getAllDebtList = appDatabase.debtDao().getAll(CurrentUser.getUsername());
 
         for (Debt debt : getAllDebtList) {
             debtName = debt.getDebt_name();
@@ -55,7 +52,7 @@ public class PayDebt extends AppCompatActivity {
         }
 
 
-        mAdapter = new com.kumabites.mm.moneymanagement.Pay.PayDebtAdapter(debtListArray, this);
+        mAdapter = new PayDebtAdapter(debtListArray, this);
         mRecyclerView.setAdapter(mAdapter);
 
 

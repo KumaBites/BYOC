@@ -1,4 +1,4 @@
-package com.kumabites.mm.moneymanagement.CreateDebt;
+package com.kumabites.mm.moneymanagement;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -9,9 +9,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kumabites.mm.R;
-import com.kumabites.mm.moneymanagement.CurrentUser;
-import com.kumabites.mm.moneymanagement.MainActivity;
-import com.kumabites.mm.moneymanagement.MainPage.MainPage;
 
 import java.util.List;
 import java.util.regex.Pattern;
@@ -21,10 +18,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 public class AddDebt extends AppCompatActivity {
+  //  private MoneyRespository debtRespository;
+
     private TextView debtName, debtAmount;
     private String oldCheck1,cSpinner,checkName, checkAmount;
     private  Spinner catergory;
     boolean booleanCheck;
+    AppDatabase appDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +32,9 @@ public class AddDebt extends AppCompatActivity {
    catergory = findViewById(R.id.cSpinner);
         debtName = findViewById(R.id.dName);
         debtAmount = findViewById(R.id.amountDebt);
+        appDatabase = AppDatabase.getDatabase(this);
+        MoneyRespository debtRespository = new MoneyRespository(getApplication());
+
 
     }
 
@@ -51,7 +54,7 @@ public class AddDebt extends AppCompatActivity {
             String DN = debtName.getText().toString();
             int DA = Integer.parseInt((debtAmount.getText().toString()));
             int DA2 = Math.abs(DA);
-            List<Debt> checkDebtName = MainActivity.appDatabase.debtDao().getDebt(DN);
+            List<Debt> checkDebtName = appDatabase.debtDao().getDebt(DN);
 
             for (Debt oldCheck : checkDebtName) {
                 oldCheck1 = oldCheck.getDebt_name();
@@ -67,7 +70,8 @@ public class AddDebt extends AppCompatActivity {
                 debt.setAmount_paid(0);
                 debt.setRemaining(DA);
                 debt.setCategoty(cSpinner);
-                MainActivity.appDatabase.debtDao().insertNew(debt);
+                MoneyRespository debtRespository = new MoneyRespository(getApplication());
+                debtRespository.insert(debt);
                 Toast.makeText(getBaseContext(), "Debt Saved!", Toast.LENGTH_LONG).show();
             }
         }

@@ -27,6 +27,6 @@ List<User> findUser(String user, String password);
 @Query("SELECT * from user_table ORDER BY user ASC")
 List<User> getAnyUser();
 
-    @Query("select * from user_table where user LIKE :user")
-    List<User> findUser(String user);
+@Query("select * from user_table where user LIKE :user")
+List<User> findUserSingle(String user);
 }

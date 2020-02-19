@@ -1,4 +1,4 @@
-package com.kumabites.mm.moneymanagement.Delete;
+package com.kumabites.mm.moneymanagement;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -6,10 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.kumabites.mm.R;
-import com.kumabites.mm.moneymanagement.CurrentUser;
-import com.kumabites.mm.moneymanagement.MainActivity;
-import com.kumabites.mm.moneymanagement.MainPage.MainPage;
-import com.kumabites.mm.moneymanagement.Pay.PayModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,21 +15,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class DeleteDebt extends AppCompatActivity {
+public class ViewDebt extends AppCompatActivity {
     private RecyclerView viewDebt;
     private List<PayModel> debtListArray;
     private String debtName,debtCategory,newDebtAmount, newDebtRemaining,newDebtPaid;
     private int debtAmount, debtPaid, debtRemaining;
-    private com.kumabites.mm.moneymanagement.Delete.DeleteDebtAdapter mAdapter;
+    private DeleteDebtAdapter mAdapter;
+    final AppDatabase appDatabase = AppDatabase.getDatabase(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_delete_debt);
-        viewDebt = findViewById(R.id.deleteDebtRecycler);
+        setContentView(R.layout.activity_view_debt);
+        viewDebt = findViewById(R.id.viewRecyclerView);
         viewDebt.setLayoutManager(new LinearLayoutManager(this));
         debtListArray = new ArrayList<>();
-        List<Debt> getAllDebtList = MainActivity.appDatabase.debtDao().getAll(CurrentUser.getUsername());
+        List<Debt> getAllDebtList = appDatabase.debtDao().getAll(CurrentUser.getUsername());
         for (Debt debt : getAllDebtList) {
             debtName = debt.getDebt_name();
             debtAmount = debt.getDebt_amount();
@@ -53,7 +50,7 @@ public class DeleteDebt extends AppCompatActivity {
         }
 
 
-        mAdapter = new com.kumabites.mm.moneymanagement.Delete.DeleteDebtAdapter(debtListArray, this);
+        mAdapter = new DeleteDebtAdapter(debtListArray, this);
         viewDebt.setAdapter(mAdapter);
 
 

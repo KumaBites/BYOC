@@ -1,4 +1,4 @@
-package com.kumabites.mm.moneymanagement.Delete;
+package com.kumabites.mm.moneymanagement;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
@@ -9,7 +9,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kumabites.mm.R;
-import com.kumabites.mm.moneymanagement.MainActivity;
 
 import java.util.List;
 
@@ -20,7 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class confirmDelete extends AppCompatActivity {
 private String deleteName,deleteDebtName;
 private TextView confirmText;
-
+    final AppDatabase appDatabase = AppDatabase.getDatabase(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,12 +37,12 @@ private TextView confirmText;
     }
     public void confirmD(){
 
-        List<Debt> getDeleteList = MainActivity.appDatabase.debtDao().getDebt(deleteName);
+        List<Debt> getDeleteList = appDatabase.debtDao().getDebt(deleteName);
         for(Debt debtDelete : getDeleteList){
             deleteDebtName = debtDelete.getDebt_name();
         }
         final Intent finishDelete = new Intent(this, DeleteDebt.class);
-        MainActivity.appDatabase.debtDao().deleteOne(deleteDebtName);
+        appDatabase.debtDao().deleteOne(deleteDebtName);
         Toast.makeText(this, "Successfully Deleted!!", Toast.LENGTH_SHORT).show();
         startActivity(finishDelete);
         finish();
