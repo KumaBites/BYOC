@@ -13,7 +13,6 @@ import com.kumabites.mm.R;
 
 import java.util.List;
 
-import MMDAO.userDao;
 import MMENTITY.User;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -166,8 +165,8 @@ public class MainActivity extends AppCompatActivity{
     public class FindUserAnyAsyncTask extends AsyncTask<Void, Void, List<User>> {
         private List<User> rList;
         private AppDatabase db;
-        
-        FindUserAnyAsyncTask(userDao dao) {
+
+        FindUserAnyAsyncTask() {
             db = AppDatabase.getDatabase(MainActivity.this);
         }
 
