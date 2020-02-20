@@ -36,7 +36,9 @@ public class MainActivity extends AppCompatActivity{
 
 
     }
-
+    public void setList(List<User> list) {
+        this.findAnyResult = list;
+    }
     public void registerNew(View view) {
         Intent rIntent = new Intent(this, NewUser.class);
         startActivity(rIntent);
@@ -117,16 +119,11 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(getApplicationContext(), "You've choosen to delete all records", Toast.LENGTH_SHORT).show();
-                new FindUserAnyAsyncTask().execute();
-                List<User> check = findAnyResult;
-                if (check.isEmpty()) {
-                    Toast.makeText(getBaseContext(), "There are no users to delete!", Toast.LENGTH_SHORT).show();
-                } else {
-                    appDatabase.clearAllTables();
-
+                    deleteUserTask dUser = new deleteUserTask();
+                    dUser.execute();
                     Toast.makeText(getBaseContext(), "All Data Deleted!!", Toast.LENGTH_SHORT).show();
                 }
-            }
+
         });
 
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -162,24 +159,19 @@ public class MainActivity extends AppCompatActivity{
     }
 //Supposed to run the check in the background and update the List<User> but I am getting null
 
-    public class FindUserAnyAsyncTask extends AsyncTask<Void, Void, List<User>> {
-        private List<User> rList;
+ private class deleteUserTask extends AsyncTask<Void, Void, Void> {
         private AppDatabase db;
 
-        FindUserAnyAsyncTask() {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
             db = AppDatabase.getDatabase(MainActivity.this);
+           db.clearAllTables();
+            return null;
         }
-
-        @Override
-        protected List<User> doInBackground(final Void... params) {
-            rList = db.userDao().getAnyUser();
-            this.rList;
-        }
-        @Override
-        protected void onPostExecute(List<User> result) {
-        }
-
     }
+
 }
 
 

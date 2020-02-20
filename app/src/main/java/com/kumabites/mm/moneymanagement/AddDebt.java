@@ -18,7 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 public class AddDebt extends AppCompatActivity {
-  //  private MoneyRespository debtRespository;
+
 
     private TextView debtName, debtAmount;
     private String oldCheck1,cSpinner,checkName, checkAmount;
@@ -33,7 +33,7 @@ public class AddDebt extends AppCompatActivity {
         debtName = findViewById(R.id.dName);
         debtAmount = findViewById(R.id.amountDebt);
         appDatabase = AppDatabase.getDatabase(this);
-        MoneyRespository debtRespository = new MoneyRespository(getApplication());
+
 
 
     }
@@ -70,8 +70,7 @@ public class AddDebt extends AppCompatActivity {
                 debt.setAmount_paid(0);
                 debt.setRemaining(DA);
                 debt.setCategoty(cSpinner);
-                MoneyRespository debtRespository = new MoneyRespository(getApplication());
-                debtRespository.insert(debt);
+
                 Toast.makeText(getBaseContext(), "Debt Saved!", Toast.LENGTH_LONG).show();
             }
         }

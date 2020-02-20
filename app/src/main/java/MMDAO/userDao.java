@@ -17,7 +17,7 @@ public interface userDao {
 List<User> findUser(String user, String password);
 
 //Registering new user
-@Insert(onConflict = OnConflictStrategy.REPLACE)
+@Insert(onConflict = OnConflictStrategy.ABORT)
     void insertUser(User user);
 
 //Deleting current user

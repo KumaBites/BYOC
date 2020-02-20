@@ -2,14 +2,13 @@ package com.kumabites.mm.moneymanagement;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.kumabites.mm.R;
-
-import java.util.List;
 
 import MMENTITY.User;
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,22 +41,21 @@ public class NewUser extends AppCompatActivity {
         singleUser(userNew);}
 
     public void singleUser(String user) {
-        List<User> oneUser = appDatabase.userDao().findUserSingle(user);
-        if (oneUser.isEmpty()) {
+       // List<User> oneUser = appDatabase.userDao().findUserSingle(user);
+       // if (oneUser.isEmpty()) {
             userNew = userInput.getText().toString();
             passNew = passInput.getText().toString();
-
             User newUser = new User();
             newUser.setUser(userNew);
             newUser.setPassword(passNew);
-            appDatabase.userDao().insertUser(newUser);
+            new insertUserTask(newUser).execute();
             Toast.makeText(getBaseContext(), "User Added Successfully", Toast.LENGTH_SHORT).show();
             Intent backToMain = new Intent(this, MainActivity.class);
             startActivity(backToMain);
             finish();
-        } else {
-            Toast.makeText(getBaseContext(), "Already a user registered", Toast.LENGTH_SHORT).show();
-        }
+        //} else {
+        //    Toast.makeText(getBaseContext(), "Already a user registered", Toast.LENGTH_SHORT).show();
+       // }
 
     }
 
@@ -69,5 +67,30 @@ public class NewUser extends AppCompatActivity {
 
         }
 
-}
+
+
+    private class insertUserTask extends AsyncTask<Void, Void, Void> {
+
+        private User newUser;
+        private AppDatabase db;
+
+        public insertUserTask(User newUser){
+            this.newUser = newUser;
+            db = AppDatabase.getDatabase(NewUser.this);
+        }
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            db.userDao().insertUser(newUser);
+            return null;
+            }
+        }
+
+
+        }
+
+
+
+
+
 
