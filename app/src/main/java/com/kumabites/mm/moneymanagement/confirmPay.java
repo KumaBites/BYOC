@@ -11,6 +11,11 @@ import android.widget.Toast;
 import com.kumabites.mm.R;
 
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import MMENTITY.Debt;
 import androidx.appcompat.app.AlertDialog;
@@ -53,6 +58,7 @@ public class confirmPay extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), "Incorrect details try again!", Toast.LENGTH_SHORT).show();
             } else {
                 absolutePText = Math.abs(pText);
+
                 List<Debt> getOldDebt = appDatabase.debtDao().getDebt(newDText);
 
                 for(Debt oldDebt : getOldDebt)
@@ -113,6 +119,33 @@ public class confirmPay extends AppCompatActivity {
     public void onBackPressed()
     {
 
+    }
+    private class getDebtCallable implements Callable<List<Debt>>
+    private String debtnameCallable;
+    List<Debt> rList;
+    private getDebtCallable(String debt){
+        this.debtnameCallable = debt;
+    }
+    {
+
+        @Override
+        public List<Debt> call(){
+            AppDatabase app = AppDatabase.getDatabase(confirmPay.this);
+            rList = app.debtDao().getDebt(debt);
+            return rList;
+
+        }
+    }
+
+    private class getDebtFuture {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        getDebtCallable newC = new getDebtCallable();
+
+        private getDebtFuture() throws ExecutionException, InterruptedException {
+        }
+
+        Future<List<Debt>> future = executorService.submit(newC);
+        List<Debt> result = future.get();
     }
 }
 

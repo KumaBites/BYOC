@@ -9,6 +9,11 @@ import com.kumabites.mm.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import MMENTITY.Debt;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,7 +36,16 @@ public class PayDebt extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.payViewRecycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         debtListArray = new ArrayList<>();
-        List<Debt> getAllDebtList = appDatabase.debtDao().getAll(CurrentUser.getUsername());
+        getDebtFuture getDebt = null;
+        try {
+            getDebt = new getDebtFuture();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        List<Debt> getAllDebtList = getDebt.result;
+
 
         for (Debt debt : getAllDebtList) {
             debtName = debt.getDebt_name();
@@ -72,5 +86,29 @@ public class PayDebt extends AppCompatActivity {
     public void onBackPressed()
     {
 
+    }
+
+    private class getDebtCallable implements Callable<List<Debt>>
+
+    {
+        List<Debt> rList;
+        @Override
+        public List<Debt> call(){
+            AppDatabase app = AppDatabase.getDatabase(PayDebt.this);
+            rList = app.debtDao().getAllDebt();
+            return rList;
+
+        }
+    }
+
+    private class getDebtFuture {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        getDebtCallable newC = new getDebtCallable();
+
+        private getDebtFuture() throws ExecutionException, InterruptedException {
+        }
+
+        Future<List<Debt>> future = executorService.submit(newC);
+        List<Debt> result = future.get();
     }
 }
