@@ -12,6 +12,11 @@ import android.widget.Toast;
 import com.kumabites.mm.R;
 
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import MMENTITY.User;
 import androidx.appcompat.app.AlertDialog;
@@ -23,6 +28,7 @@ public class MainActivity extends AppCompatActivity{
     private String userid, passid, oldUser, oldPass, oldU, oldP;
     private List<User> findAnyResult;
     AppDatabase appDatabase;
+    private Object String;
 
 
     @Override
@@ -171,6 +177,41 @@ public class MainActivity extends AppCompatActivity{
             return null;
         }
     }
+    private class Test implements Callable<List<User>>
+
+       {
+           List<User> rList;
+            @Override
+            public List<User> call() throws Exception{
+                AppDatabase app = AppDatabase.getDatabase(MainActivity.this);
+                rList = app.userDao().getAnyUser();
+                return rList;
+
+            }
+        }
+
+private class TestFuture {
+    ExecutorService executorService = Executors.newSingleThreadExecutor();
+    Test newC = new Test();
+
+    private TestFuture() throws ExecutionException, InterruptedException {
+    }
+
+    Future<List<User>> future = executorService.submit(newC);
+    List<User> result = future.get();
+}
+public void testList (View view) throws ExecutionException, InterruptedException {
+         List<User> testResp;
+         TestFuture nwTest = new TestFuture();
+         testResp = nwTest.result;
+         if(testResp.isEmpty())
+         {Toast.makeText(getApplicationContext(),"list is empty",Toast.LENGTH_SHORT).show();}
+         if(!testResp.isEmpty()){
+             Toast.makeText(getApplicationContext(),"list isn't empty",Toast.LENGTH_SHORT).show();
+         }
+
+}
+
 
 }
 
