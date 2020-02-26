@@ -10,6 +10,13 @@ import android.widget.Toast;
 
 import com.kumabites.mm.R;
 
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 import MMENTITY.User;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -36,28 +43,9 @@ public class NewUser extends AppCompatActivity {
         finish();
 
     }
-    public void checkUser (View view){
-        userNew = userInput.getText().toString();
-        singleUser(userNew);}
 
-    public void singleUser(String user) {
-       // List<User> oneUser = appDatabase.userDao().findUserSingle(user);
-       // if (oneUser.isEmpty()) {
-            userNew = userInput.getText().toString();
-            passNew = passInput.getText().toString();
-            User newUser = new User();
-            newUser.setUser(userNew);
-            newUser.setPassword(passNew);
-            new insertUserTask(newUser).execute();
-            Toast.makeText(getBaseContext(), "User Added Successfully", Toast.LENGTH_SHORT).show();
-            Intent backToMain = new Intent(this, MainActivity.class);
-            startActivity(backToMain);
-            finish();
-        //} else {
-        //    Toast.makeText(getBaseContext(), "Already a user registered", Toast.LENGTH_SHORT).show();
-       // }
 
-    }
+
 
     //stops the back button on the phone from working
         @SuppressLint("MissingSuperCall")
@@ -85,6 +73,56 @@ public class NewUser extends AppCompatActivity {
             return null;
             }
         }
+    private class getOldUserCallable implements Callable<List<User>>
+
+    {
+        List<User> rList;
+        @Override
+        public List<User> call(){
+            AppDatabase app = AppDatabase.getDatabase(NewUser.this);
+            rList = app.userDao().getAnyUser();
+            return rList;
+
+        }
+    }
+
+    private class getOldUserFuture {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        getOldUserCallable newC = new getOldUserCallable();
+
+        private getOldUserFuture() throws ExecutionException, InterruptedException {
+        }
+
+        Future<List<User>> future = executorService.submit(newC);
+        List<User> result = future.get();
+    }
+    public void checkOldUserFuture (View view) throws ExecutionException, InterruptedException {
+
+        List<User> oldUserList;
+        getOldUserFuture oFuture = new getOldUserFuture();
+        oldUserList = oFuture.result;
+        if(!oldUserList.isEmpty())
+        {
+            Toast.makeText(getApplicationContext(),"Already a user registered",Toast.LENGTH_SHORT).show();
+        }
+        else if(oldUserList.equals(null))
+        {
+            Toast.makeText(getApplicationContext(),"Something went wrong there!",Toast.LENGTH_SHORT).show();
+        }
+        else if(oldUserList.isEmpty()){
+            userNew = userInput.getText().toString();
+            passNew = passInput.getText().toString();
+            User newUser = new User();
+            newUser.setUser(userNew);
+            newUser.setPassword(passNew);
+            new insertUserTask(newUser).execute();
+            Toast.makeText(getBaseContext(), "User Added Successfully", Toast.LENGTH_SHORT).show();
+            Intent backToMain = new Intent(this, MainActivity.class);
+            startActivity(backToMain);
+            finish();
+        }
+
+    }
 
 
         }

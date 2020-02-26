@@ -15,7 +15,7 @@
         android:layout_marginEnd="35dp"
         android:layout_marginRight="35dp"
         android:layout_marginTop="80dp"
-        android:onClick="oldUser"
+        android:onClick="checkOldUserFuture"
         android:text="@string/login"
         app:layout_constraintEnd_toEndOf="@+id/newUser"
         app:layout_constraintTop_toBottomOf="@+id/passwordText" />
@@ -51,7 +51,7 @@
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:onClick="testList"
+        android:onClick="nuketable"
         android:text="@string/deleteAll"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

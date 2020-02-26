@@ -9,6 +9,11 @@ import com.kumabites.mm.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import MMENTITY.Debt;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +26,7 @@ public class ViewDebt extends AppCompatActivity {
     private String debtName,debtCategory,newDebtAmount, newDebtRemaining,newDebtPaid;
     private int debtAmount, debtPaid, debtRemaining;
     private DeleteDebtAdapter mAdapter;
+
     final AppDatabase appDatabase = AppDatabase.getDatabase(this);
 
     @Override
@@ -30,7 +36,15 @@ public class ViewDebt extends AppCompatActivity {
         viewDebt = findViewById(R.id.viewRecyclerView);
         viewDebt.setLayoutManager(new LinearLayoutManager(this));
         debtListArray = new ArrayList<>();
-        List<Debt> getAllDebtList = appDatabase.debtDao().getAll(CurrentUser.getUsername());
+        getDebtFuture getDebt = null;
+        try {
+            getDebt = new getDebtFuture();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        List<Debt> getAllDebtList = getDebt.result;
         for (Debt debt : getAllDebtList) {
             debtName = debt.getDebt_name();
             debtAmount = debt.getDebt_amount();
@@ -61,6 +75,7 @@ public class ViewDebt extends AppCompatActivity {
 
 
     }
+
     @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed()
@@ -73,5 +88,28 @@ public class ViewDebt extends AppCompatActivity {
         Intent goBack = new Intent(this, MainPage.class);
         startActivity(goBack);
         finish();
+    }
+    private class getDebtCallable implements Callable<List<Debt>>
+
+    {
+        List<Debt> rList;
+        @Override
+        public List<Debt> call(){
+            AppDatabase app = AppDatabase.getDatabase(ViewDebt.this);
+            rList = app.debtDao().getAllDebt();
+            return rList;
+
+        }
+    }
+
+    private class getDebtFuture {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        getDebtCallable newC = new getDebtCallable();
+
+        private getDebtFuture() throws ExecutionException, InterruptedException {
+        }
+
+        Future<List<Debt>> future = executorService.submit(newC);
+        List<Debt> result = future.get();
     }
 }

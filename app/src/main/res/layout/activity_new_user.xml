@@ -13,7 +13,7 @@
         android:layout_marginLeft="40dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="72dp"
-        android:onClick="checkUser"
+        android:onClick="checkOldUserFuture"
         android:text="@string/saveNewUser"
         app:layout_constraintStart_toStartOf="@+id/PassText"
         app:layout_constraintTop_toBottomOf="@+id/PassText" />

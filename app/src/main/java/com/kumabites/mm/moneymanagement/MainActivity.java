@@ -42,51 +42,14 @@ public class MainActivity extends AppCompatActivity{
 
 
     }
-    public void setList(List<User> list) {
-        this.findAnyResult = list;
-    }
+
     public void registerNew(View view) {
         Intent rIntent = new Intent(this, NewUser.class);
         startActivity(rIntent);
         finish();
     }
 
-    public String getOUser(List<User> oldUserList) {
 
-        for (User user : oldUserList) {
-            userid = user.getUser();
-            return userid;
-        }
-        return null;
-    }
-
-    public String getOPass(List<User> oldUserList) {
-
-        for (User user : oldUserList) {
-            passid = user.getPassword();
-            return passid;
-        }
-        return null;
-    }
-
-    public void userCheck(String oldUser, String newUser, String oldPass, String newPass) {
-        Intent Main = new Intent(this, MainPage.class);
-        if (oldUser == null || oldPass == null) {
-            user.setText("");
-            pass.setText("");
-            Toast.makeText(getBaseContext(), "Wrong details", Toast.LENGTH_SHORT).show();
-        } else if (oldUser.equals(newUser) && oldPass.equals(newPass)) {
-            CurrentUser.setUsername(oldUser);
-            startActivity(Main);
-            finish();
-            Toast.makeText(getBaseContext(), "Welcome " + oldUser, Toast.LENGTH_SHORT).show();
-        } else {
-            user.setText("");
-            pass.setText("");
-            Toast.makeText(getBaseContext(), "Wrong details", Toast.LENGTH_SHORT).show();
-        }
-
-    }
 
     @SuppressLint("MissingSuperCall")
     @Override
@@ -104,17 +67,6 @@ public class MainActivity extends AppCompatActivity{
     }
 
     //checks the input to see if user is registered
-    public void oldUser(View view) {
-        oldUser = user.getText().toString();
-        oldPass = pass.getText().toString();
-        List<User> getOldUser = appDatabase.userDao().findUser(oldUser, oldPass);
-        oldU = getOUser(getOldUser);
-        oldP = getOPass(getOldUser);
-        userCheck(oldU, oldUser, oldP, oldPass);
-
-
-    }
-
     private void confirmDeleteDialog() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -163,7 +115,6 @@ public class MainActivity extends AppCompatActivity{
 
         builder.show();
     }
-//Supposed to run the check in the background and update the List<User> but I am getting null
 
  private class deleteUserTask extends AsyncTask<Void, Void, Void> {
         private AppDatabase db;
@@ -177,12 +128,12 @@ public class MainActivity extends AppCompatActivity{
             return null;
         }
     }
-    private class Test implements Callable<List<User>>
+    private class getOldUserCallable implements Callable<List<User>>
 
        {
            List<User> rList;
             @Override
-            public List<User> call() throws Exception{
+            public List<User> call(){
                 AppDatabase app = AppDatabase.getDatabase(MainActivity.this);
                 rList = app.userDao().getAnyUser();
                 return rList;
@@ -190,29 +141,53 @@ public class MainActivity extends AppCompatActivity{
             }
         }
 
-private class TestFuture {
+private class getOldUserFuture {
     ExecutorService executorService = Executors.newSingleThreadExecutor();
-    Test newC = new Test();
+    getOldUserCallable newC = new getOldUserCallable();
 
-    private TestFuture() throws ExecutionException, InterruptedException {
+    private getOldUserFuture() throws ExecutionException, InterruptedException {
     }
 
     Future<List<User>> future = executorService.submit(newC);
     List<User> result = future.get();
 }
-public void testList (View view) throws ExecutionException, InterruptedException {
-         List<User> testResp;
-         TestFuture nwTest = new TestFuture();
-         testResp = nwTest.result;
-         if(testResp.isEmpty())
-         {Toast.makeText(getApplicationContext(),"list is empty",Toast.LENGTH_SHORT).show();}
-         if(!testResp.isEmpty()){
-             Toast.makeText(getApplicationContext(),"list isn't empty",Toast.LENGTH_SHORT).show();
+public void checkOldUserFuture (View view) throws ExecutionException, InterruptedException {
+    oldUser = user.getText().toString();
+    oldPass = pass.getText().toString();
+
+         List<User> oldUserList;
+         getOldUserFuture oFuture = new getOldUserFuture();
+         oldUserList = oFuture.result;
+         if(oldUserList.isEmpty())
+         {
+             Toast.makeText(getApplicationContext(),"No registered user",Toast.LENGTH_SHORT).show();
+         }
+         else if(oldUserList.equals(null))
+         {
+        Toast.makeText(getApplicationContext(),"Coming uo with nothing!",Toast.LENGTH_SHORT).show();
+         }
+         if(!oldUserList.isEmpty()){
+             for(User user : oldUserList){
+                 oldU = user.getUser();
+                 oldP = user.getPassword();
+             }
+             if(oldU.equals(oldUser)&& oldP.equals(oldPass)){
+                 Intent Main = new Intent(this, MainPage.class);
+                     startActivity(Main);
+                     finish();
+                     Toast.makeText(getBaseContext(), "Welcome " + oldUser, Toast.LENGTH_SHORT).show();
+                 }
+             else if(!oldU.equals(oldUser)|| !oldP.equals(oldPass))
+             {
+                 Toast.makeText(getApplicationContext(),"Wrong details entered! Try Again!",Toast.LENGTH_SHORT).show();
+             }
+
+             }
          }
 
 }
 
 
-}
+
 
 
