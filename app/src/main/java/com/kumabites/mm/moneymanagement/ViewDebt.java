@@ -25,7 +25,7 @@ public class ViewDebt extends AppCompatActivity {
     private List<PayModel> debtListArray;
     private String debtName,debtCategory,newDebtAmount, newDebtRemaining,newDebtPaid;
     private int debtAmount, debtPaid, debtRemaining;
-    private DeleteDebtAdapter mAdapter;
+    private ViewRecyclerView mAdapter;
 
     final AppDatabase appDatabase = AppDatabase.getDatabase(this);
 
@@ -67,7 +67,7 @@ public class ViewDebt extends AppCompatActivity {
         }
 
 
-        mAdapter = new DeleteDebtAdapter(debtListArray, this);
+        mAdapter = new ViewRecyclerView(debtListArray, this);
         viewDebt.setAdapter(mAdapter);
 
 
