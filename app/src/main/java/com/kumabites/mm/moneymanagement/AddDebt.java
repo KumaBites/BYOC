@@ -62,36 +62,37 @@ public class AddDebt extends AppCompatActivity {
             String DN = debtName.getText().toString();
             int DA = Integer.parseInt((debtAmount.getText().toString()));
             int DA2 = Math.abs(DA);
-            getOldDebtFuture oFuture = new getOldDebtFuture();
-            oldUserList = oFuture.result;
+            ExecutorService executorService = Executors.newSingleThreadExecutor();
+            getDebtCallable newC = new getDebtCallable(DN);
+            Future<List<Debt>> future = executorService.submit(newC);
+            List<Debt> result = future.get();
+            oldUserList = result;
             List<Debt> checkDebtName = oldUserList;
-            if (!checkDebtName.isEmpty()) {
-                for (Debt oldCheck : checkDebtName) {
-                    oldCheck1 = oldCheck.getDebt_name();
-                    if (oldCheck1.equals(DN)) {
+            if (checkDebtName.isEmpty()){
+                Debt debt = new Debt();
+                debt.setDebt_name(DN);
+                debt.setDebt_amount(DA2);
+                debt.setUser_name(CurrentUser.getUsername());
+                debt.setAmount_paid(0);
+                debt.setRemaining(DA);
+                debt.setCategoty(cSpinner);
+                new insertDebtAsync(debt).execute();
+                Toast.makeText(getBaseContext(), "Debt Saved!", Toast.LENGTH_SHORT).show();
+
+            }
+                    else {
                         Toast.makeText(getBaseContext(), "Debt name already exists", Toast.LENGTH_SHORT).show();
-                        break;
-                    }     else{
-                        Debt debt = new Debt();
-                        debt.setDebt_name(DN);
-                        debt.setDebt_amount(DA2);
-                        debt.setUser_name(CurrentUser.getUsername());
-                        debt.setAmount_paid(0);
-                        debt.setRemaining(DA);
-                        debt.setCategoty(cSpinner);
-                        new insertDebtAsync(debt).execute();
-                        Toast.makeText(getBaseContext(), "Debt Saved!", Toast.LENGTH_SHORT).show();
-                        break;
                     }
+
 
                 }
 
             }
 
 
-            }
 
-            }
+
+
 
 
 
@@ -128,28 +129,27 @@ public class AddDebt extends AppCompatActivity {
 
         }
 
-    private class getOldDebtCallable implements Callable<List<Debt>>
-    {
+    private class getDebtCallable implements Callable<List<Debt>> {
 
+        private getDebtCallable(String debt) {
+            this.debtnameCallable = debt;
+        }
+        private String debtnameCallable;
         List<Debt> rList;
         @Override
-        public List<Debt> call(){
+        public List<Debt> call () {
             AppDatabase app = AppDatabase.getDatabase(AddDebt.this);
-            rList = app.debtDao().getAllDebt();
+            rList = app.debtDao().getDebt(debtnameCallable);
             return rList;
 
         }
     }
 
-    private class getOldDebtFuture {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        getOldDebtCallable newC = new getOldDebtCallable();
 
-        private getOldDebtFuture() throws ExecutionException, InterruptedException {
-        }
 
-        Future<List<Debt>> future = executorService.submit(newC);
-        List<Debt> result = future.get();
-    }
+
+
+
+
 
     }

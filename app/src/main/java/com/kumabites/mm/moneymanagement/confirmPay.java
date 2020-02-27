@@ -3,6 +3,7 @@ package com.kumabites.mm.moneymanagement;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -58,8 +59,18 @@ public class confirmPay extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), "Incorrect details try again!", Toast.LENGTH_SHORT).show();
             } else {
                 absolutePText = Math.abs(pText);
-
-                List<Debt> getOldDebt = appDatabase.debtDao().getDebt(newDText);
+                ExecutorService executorService = Executors.newSingleThreadExecutor();
+                getDebtCallable newC = new getDebtCallable(newDText);
+                Future<List<Debt>> future = executorService.submit(newC);
+                List<Debt> result = null;
+                try {
+                    result = future.get();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                List<Debt> getOldDebt = result;
 
                 for(Debt oldDebt : getOldDebt)
                 {
@@ -71,8 +82,8 @@ public class confirmPay extends AppCompatActivity {
                     debtPay = oldDebt.getAmount_paid();
                     debtPay = debtPay + pText;
                     oldDebt.setAmount_paid(debtPay);
-                    appDatabase.debtDao().updateDebt(oldDebt);
-
+                    updateAsyncTask UPDATE = new updateAsyncTask(oldDebt);
+                    UPDATE.execute();
                 }
 
                 Toast.makeText(getBaseContext(),"Updated successfully",Toast.LENGTH_SHORT).show();
@@ -120,32 +131,53 @@ public class confirmPay extends AppCompatActivity {
     {
 
     }
-    private class getDebtCallable implements Callable<List<Debt>>
-    private String debtnameCallable;
-    List<Debt> rList;
-    private getDebtCallable(String debt){
-        this.debtnameCallable = debt;
+
+    private class updateAsyncTask extends AsyncTask<Void, Void, Void> {
+        private AppDatabase db;
+        private Debt debtName;
+    private updateAsyncTask(Debt debtName){
+        this.debtName = debtName;
     }
-    {
 
         @Override
-        public List<Debt> call(){
+        protected Void doInBackground(Void... params) {
+
+            db = AppDatabase.getDatabase(confirmPay.this);
+            db.debtDao().updateDebt(debtName);
+            return null;
+        }
+    }
+    private class getDebtCallable implements Callable<List<Debt>> {
+        private String debtnameCallable;
+        List<Debt> rList;
+        private getDebtCallable(String debt) {
+            this.debtnameCallable = debt;
+        }
+
+            @Override
+            public List<Debt> call () {
             AppDatabase app = AppDatabase.getDatabase(confirmPay.this);
-            rList = app.debtDao().getDebt(debt);
+            rList = app.debtDao().getDebt(debtnameCallable);
             return rList;
 
         }
-    }
-
-    private class getDebtFuture {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        getDebtCallable newC = new getDebtCallable();
-
-        private getDebtFuture() throws ExecutionException, InterruptedException {
         }
 
+
+    private class getDebtFuture {
+    private String callableInput;
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+
+
+        private getDebtFuture(String cInput) throws ExecutionException, InterruptedException {
+            this.callableInput = cInput;
+
+        }
+        getDebtCallable newC = new getDebtCallable(callableInput);
         Future<List<Debt>> future = executorService.submit(newC);
         List<Debt> result = future.get();
+
     }
 }
 

@@ -42,8 +42,19 @@ private TextView confirmText;
         confirmDeleteDebt();
     }
     public void confirmD() throws ExecutionException, InterruptedException {
-        getDebtFuture getDebt = new getDebtFuture();
-        List<Debt> getDeleteList = getDebt.result ;
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        getDebtCallable newC = new getDebtCallable(deleteName);
+        Future<List<Debt>> future = executorService.submit(newC);
+        List<Debt> result = null;
+        try {
+            result = future.get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        List<Debt> getDeleteList = result ;
         for(Debt debtDelete : getDeleteList){
             deleteDebtName = debtDelete.getDebt_name();
         }
@@ -106,27 +117,20 @@ private TextView confirmText;
          return null;
      }
  }
-    private class getDebtCallable implements Callable<List<Debt>>
-
-    {
+    private class getDebtCallable implements Callable<List<Debt>> {
+        private String debtnameCallable;
         List<Debt> rList;
+        private getDebtCallable(String debt) {
+            this.debtnameCallable = debt;
+        }
+
         @Override
-        public List<Debt> call(){
+        public List<Debt> call () {
             AppDatabase app = AppDatabase.getDatabase(confirmDelete.this);
-            rList = app.debtDao().getAllDebt();
+            rList = app.debtDao().getDebt(debtnameCallable);
             return rList;
 
         }
     }
 
-    private class getDebtFuture {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        getDebtCallable newC = new getDebtCallable();
-
-        private getDebtFuture() throws ExecutionException, InterruptedException {
-        }
-
-        Future<List<Debt>> future = executorService.submit(newC);
-        List<Debt> result = future.get();
-    }
 }

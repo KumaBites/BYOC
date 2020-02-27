@@ -36,15 +36,18 @@ public class PayDebt extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.payViewRecycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         debtListArray = new ArrayList<>();
-        getDebtFuture getDebt = null;
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        getDebtCallable newC = new getDebtCallable();
+        Future<List<Debt>> future = executorService.submit(newC);
+        List<Debt> result = null;
         try {
-            getDebt = new getDebtFuture();
+            result = future.get();
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        List<Debt> getAllDebtList = getDebt.result;
+        List<Debt> getAllDebtList = result;
 
 
         for (Debt debt : getAllDebtList) {
@@ -101,14 +104,4 @@ public class PayDebt extends AppCompatActivity {
         }
     }
 
-    private class getDebtFuture {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        getDebtCallable newC = new getDebtCallable();
-
-        private getDebtFuture() throws ExecutionException, InterruptedException {
-        }
-
-        Future<List<Debt>> future = executorService.submit(newC);
-        List<Debt> result = future.get();
-    }
 }
