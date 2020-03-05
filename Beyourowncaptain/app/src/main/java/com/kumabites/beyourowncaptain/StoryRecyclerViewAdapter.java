@@ -1,11 +1,14 @@
 package com.kumabites.beyourowncaptain;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.kumabites.beyourowncaptain.GettingReady.Event;
 
 import java.util.List;
 
@@ -41,6 +44,8 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
                 public void onClick(View v) {
                     String storyName = storyList.get(position).getStoryName();
                     Toast.makeText(context, storyName + " is selected", Toast.LENGTH_SHORT).show();
+                    Intent newI = new Intent(context, Event.class);
+                    context.startActivity(newI);
                 }
             });
         }
