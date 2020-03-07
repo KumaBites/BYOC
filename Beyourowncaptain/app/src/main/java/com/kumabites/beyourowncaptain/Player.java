@@ -9,35 +9,35 @@ public class Player {
     private static boolean hygiene, breakfast, clothes, hair;
 
 
-    public String getName() {
+    public static String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public static void setName(String name) {
+        Player.name = name;
     }
 
-    public int getHealth() {
+    public static int getHealth() {
         return Health;
     }
 
-    public void setHealth(int health) {
+    public static void setHealth(int health) {
         Health = health;
     }
 
-    public String getItems() {
+    public static String getItems() {
         return items;
     }
 
-    public void setItems(String items) {
-        this.items = items;
+    public static void setItems(String items) {
+        Player.items = items;
     }
 
-    public int getMana() {
+    public static int getMana() {
         return Mana;
     }
 
-    public void setMana(int mana) {
+    public static void setMana(int mana) {
         Mana = mana;
     }
 
@@ -56,20 +56,20 @@ public class Player {
     public  static void setBreakfast(boolean breakfast) {
         Player.breakfast = breakfast; }
 
-    public boolean isClothes() {
+    public static boolean isClothes() {
         return clothes;
     }
 
-    public void setClothes(boolean clothes) {
-        this.clothes = clothes;
+    public static void setClothes(boolean clothes) {
+        Player.clothes = clothes;
     }
 
-    public boolean isHair() {
+    public static boolean isHair() {
         return hair;
     }
 
-    public void setHair(boolean hair) {
-        this.hair = hair;
+    public static void setHair(boolean hair) {
+        Player.hair = hair;
     }
 
 

@@ -48,6 +48,8 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
 
                     Player.setBreakfast(false);
                     Player.setHygiene(false);
+                    Player.setClothes(false);
+                    Player.setHair(false);
 
                     context.startActivity(newI);
                 }
