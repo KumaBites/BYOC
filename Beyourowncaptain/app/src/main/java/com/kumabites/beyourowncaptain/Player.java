@@ -41,21 +41,20 @@ public class Player {
         Mana = mana;
     }
 
-    public boolean isHygiene() {
+    public static boolean getHygiene() {
         return hygiene;
     }
 
-    public void setHygiene(boolean hygiene) {
-        this.hygiene = hygiene;
+    public static void setHygiene(boolean hygiene) {
+        Player.hygiene = hygiene;
     }
 
-    public boolean isBreakfast() {
+    public static boolean getBreakfast() {
         return breakfast;
     }
 
-    public void setBreakfast(boolean breakfast) {
-        this.breakfast = breakfast;
-    }
+    public  static void setBreakfast(boolean breakfast) {
+        Player.breakfast = breakfast; }
 
     public boolean isClothes() {
         return clothes;

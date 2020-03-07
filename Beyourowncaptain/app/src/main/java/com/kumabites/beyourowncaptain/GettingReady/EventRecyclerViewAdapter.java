@@ -1,6 +1,7 @@
 package com.kumabites.beyourowncaptain.GettingReady;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,9 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
             public void onClick(View v) {
                 String eventName1 = eventList.get(position).getEventChoice1();
                 Toast.makeText(context, eventName1 + " is selected", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, Event.class);
+                context.startActivity(intent);
+
             }
         });
         holder.eventChoice2.setOnClickListener(new View.OnClickListener() {
@@ -51,13 +55,17 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
             public void onClick(View v) {
                 String eventName2 = eventList.get(position).getEventChoice2();
                 Toast.makeText(context, eventName2 + " is selected", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, Event.class);
+                context.startActivity(intent);
             }
         });
-        holder.eventChoice2.setOnClickListener(new View.OnClickListener() {
+        holder.eventChoice3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String eventName3 = eventList.get(position).getEventChoice3();
                 Toast.makeText(context, eventName3 + " is selected", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, Event.class);
+                context.startActivity(intent);
             }
         });
     }

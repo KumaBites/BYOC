@@ -164,7 +164,7 @@ public void checkOldUserFuture (View view) throws ExecutionException, Interrupte
          }
          else if(oldUserList.equals(null))
          {
-        Toast.makeText(getApplicationContext(),"Coming uo with nothing!",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),"Coming up with nothing!",Toast.LENGTH_SHORT).show();
          }
          if(!oldUserList.isEmpty()){
              for(User user : oldUserList){

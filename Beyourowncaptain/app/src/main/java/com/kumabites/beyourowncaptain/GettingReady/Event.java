@@ -9,7 +9,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+
+import com.kumabites.beyourowncaptain.Player;
 import com.kumabites.beyourowncaptain.R;
 import com.kumabites.beyourowncaptain.Story_Select;
 
@@ -22,7 +25,7 @@ public class Event extends AppCompatActivity {
     private List<EventModel> eventList;
     private EventRecyclerViewAdapter eAdapter;
     private TextView descrption;
-
+    boolean hygenie, breakfast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,15 +33,27 @@ public class Event extends AppCompatActivity {
         setContentView(R.layout.activity_event);
         event = findViewById(R.id.EventRecyclerView);
         descrption = findViewById(R.id.Description);
-        descrption.setText("What to do with alan");
-        event.setLayoutManager(new LinearLayoutManager(this));
+        hygenie = Player.getHygiene();
+        if (hygenie == false)
+        {
 
-        eventList= new ArrayList<>();
-        eventList.add(new EventModel("Alan","Husband","Kiss Him","Snuggle Him","Shag him"));
+            event.setLayoutManager(new LinearLayoutManager(this));
+            descrption.setText("What to do with alan bum");
+            eventList= new ArrayList<>();
+            eventList.add(new EventModel("Alan","Husband","Kiss Him","Snuggle Him","Shag him"));
+            eAdapter = new EventRecyclerViewAdapter(eventList,this);
+            event.setAdapter(eAdapter);
+            Player.setHygiene(true);
 
-        eAdapter = new EventRecyclerViewAdapter(eventList,this);
-        event.setAdapter(eAdapter);
-
+        }
+        else if(hygenie == true) {
+            event.setLayoutManager(new LinearLayoutManager(this));
+            descrption.setText("What to do with alan now");
+            eventList = new ArrayList<>();
+            eventList.add(new EventModel("Alan", "Husband", "Kiss Him", "Snuggle Him", "Shag him"));
+            eAdapter = new EventRecyclerViewAdapter(eventList, this);
+            event.setAdapter(eAdapter);
+        }
 
 
     }
