@@ -9,18 +9,55 @@ public class Events {
 
     @NonNull
     @PrimaryKey(autoGenerate = true)
-    private int eventId;
+    private double eventId;
     private String eventName;
     private String eventDescription;
+    private double nextEventID1;
     private String eventChoice1;
+
+    private double nextEventID2;
     private String eventChoice2;
+
+    private double nextEventID3;
     private String eventChoice3;
 
-    public int getEventId() {
+    public Events(double v, String s, String what_to_do_with_alan, double v1, String kiss_him, double v2, String snuggle_him, double v3, String shag_him) {
+
+    }
+
+
+    public double getNextEventID1() {
+        return nextEventID1;
+    }
+
+    public void setNextEventID1(double nextEventID1) {
+        this.nextEventID1 = nextEventID1;
+    }
+
+    public double getNextEventID2() {
+        return nextEventID2;
+    }
+
+    public void setNextEventID2(double nextEventID2) {
+        this.nextEventID2 = nextEventID2;
+    }
+
+    public double getNextEventID3() {
+        return nextEventID3;
+    }
+
+    public void setNextEventID3(double nextEventID3) {
+        this.nextEventID3 = nextEventID3;
+    }
+
+
+
+
+    public double getEventId() {
         return eventId;
     }
 
-    public void setEventId(int eventId) {
+    public void setEventId( double eventId) {
         this.eventId = eventId;
     }
 

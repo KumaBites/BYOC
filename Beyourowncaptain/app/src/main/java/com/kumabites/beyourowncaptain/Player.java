@@ -6,7 +6,43 @@ public class Player {
     private static int Health;
     private static String items;
     private static int Mana;
-    private static boolean hygiene, breakfast, clothes, hair;
+    private static double currentEventID;
+    private static double nextEventID1;
+    private static double nextEventID2;
+    private static double nextEventID3;
+
+    public static double getCurrentEventID() {
+        return currentEventID;
+    }
+
+    public static void setCurrentEventID(double currentEventID) {
+        Player.currentEventID = currentEventID;
+    }
+
+    public static double getNextEventID1() {
+        return nextEventID1;
+    }
+
+    public static void setNextEventID1(double nextEventID1) {
+        Player.nextEventID1 = nextEventID1;
+    }
+
+    public static double getNextEventID2() {
+        return nextEventID2;
+    }
+
+    public static void setNextEventID2(double nextEventID2) {
+        Player.nextEventID2 = nextEventID2;
+    }
+
+    public static double getNextEventID3() {
+        return nextEventID3;
+    }
+
+    public static void setNextEventID3(double nextEventID3) {
+        Player.nextEventID3 = nextEventID3;
+    }
+
 
 
     public static String getName() {
@@ -41,36 +77,6 @@ public class Player {
         Mana = mana;
     }
 
-    public static boolean getHygiene() {
-        return hygiene;
-    }
-
-    public static void setHygiene(boolean hygiene) {
-        Player.hygiene = hygiene;
-    }
-
-    public static boolean getBreakfast() {
-        return breakfast;
-    }
-
-    public  static void setBreakfast(boolean breakfast) {
-        Player.breakfast = breakfast; }
-
-    public static boolean isClothes() {
-        return clothes;
-    }
-
-    public static void setClothes(boolean clothes) {
-        Player.clothes = clothes;
-    }
-
-    public static boolean isHair() {
-        return hair;
-    }
-
-    public static void setHair(boolean hair) {
-        Player.hair = hair;
-    }
 
 
 }

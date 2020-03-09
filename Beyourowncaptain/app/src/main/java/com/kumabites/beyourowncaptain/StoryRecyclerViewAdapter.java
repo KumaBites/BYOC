@@ -45,12 +45,7 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
                     String storyName = storyList.get(position).getStoryName();
                     Toast.makeText(context, storyName + " is selected", Toast.LENGTH_SHORT).show();
                     Intent newI = new Intent(context, Event.class);
-
-                    Player.setBreakfast(false);
-                    Player.setHygiene(false);
-                    Player.setClothes(false);
-                    Player.setHair(false);
-
+                    Player.setCurrentEventID(1.0);
                     context.startActivity(newI);
                 }
             });

@@ -3,17 +3,58 @@ package com.kumabites.beyourowncaptain.GettingReady;
 public class EventModel {
 
     private String eventName;
+    private Double eventID;
     private String eventDescription;
     private String eventChoice1;
     private String eventChoice2;
     private String eventChoice3;
 
-    public EventModel(String eventName, String eventDescription, String eventChoice1, String eventChoice2, String eventChoice3){
+    public Double getEventID() {
+        return eventID;
+    }
+
+    public void setEventID(Double eventID) {
+        this.eventID = eventID;
+    }
+
+    public double getEventChoiceID1() {
+        return eventChoiceID1;
+    }
+
+    public void setEventChoiceID1(double eventChoiceID1) {
+        this.eventChoiceID1 = eventChoiceID1;
+    }
+
+    public double getEventChoiceID2() {
+        return eventChoiceID2;
+    }
+
+    public void setEventChoiceID2(double eventChoiceID2) {
+        this.eventChoiceID2 = eventChoiceID2;
+    }
+
+    public double getEventChoiceID3() {
+        return eventChoiceID3;
+    }
+
+    public void setEventChoiceID3(double eventChoiceID3) {
+        this.eventChoiceID3 = eventChoiceID3;
+    }
+
+    private double eventChoiceID1;
+    private double eventChoiceID2;
+    private double eventChoiceID3;
+
+    public EventModel(String eventName, double eventID, String eventDescription, double eventChoiceID1, String eventChoice1, double eventChoiceID2, String eventChoice2, double eventChoiceID3, String eventChoice3){
         this.eventName = eventName;
         this.eventDescription = eventDescription;
         this.eventChoice1 = eventChoice1;
         this.eventChoice2 = eventChoice2;
         this.eventChoice3 = eventChoice3;
+        this.eventChoiceID1 = eventChoiceID1;
+        this.eventChoiceID2 = eventChoiceID2;
+        this.eventChoiceID3 = eventChoiceID3;
+
     }
 
     public String getEventName() {
