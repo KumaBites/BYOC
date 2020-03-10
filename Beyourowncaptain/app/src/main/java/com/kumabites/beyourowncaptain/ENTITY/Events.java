@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 public class Events {
 
     @NonNull
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     private double eventId;
     private String eventName;
     private String eventDescription;
@@ -20,11 +20,6 @@ public class Events {
 
     private double nextEventID3;
     private String eventChoice3;
-
-    public Events(double v, String s, String what_to_do_with_alan, double v1, String kiss_him, double v2, String snuggle_him, double v3, String shag_him) {
-
-    }
-
 
     public double getNextEventID1() {
         return nextEventID1;

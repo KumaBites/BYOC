@@ -8,7 +8,9 @@ public class EventModel {
     private String eventChoice1;
     private String eventChoice2;
     private String eventChoice3;
-
+    private double eventChoiceID1;
+    private double eventChoiceID2;
+    private double eventChoiceID3;
     public Double getEventID() {
         return eventID;
     }
@@ -41,9 +43,7 @@ public class EventModel {
         this.eventChoiceID3 = eventChoiceID3;
     }
 
-    private double eventChoiceID1;
-    private double eventChoiceID2;
-    private double eventChoiceID3;
+
 
     public EventModel(String eventName, double eventID, String eventDescription, double eventChoiceID1, String eventChoice1, double eventChoiceID2, String eventChoice2, double eventChoiceID3, String eventChoice3){
         this.eventName = eventName;
