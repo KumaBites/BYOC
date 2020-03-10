@@ -7,19 +7,47 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Events {
 
-    @NonNull
+
     @PrimaryKey
     private double eventId;
+
     private String eventName;
     private String eventDescription;
     private double nextEventID1;
     private String eventChoice1;
-
     private double nextEventID2;
     private String eventChoice2;
 
     private double nextEventID3;
     private String eventChoice3;
+    private String eventToast1;
+    private String eventToast2;
+    private String eventToast3;
+    public String getEventToast1() {
+        return eventToast1;
+    }
+
+    public void setEventToast1(String eventToast1) {
+        this.eventToast1 = eventToast1;
+    }
+
+    public String getEventToast2() {
+        return eventToast2;
+    }
+
+    public void setEventToast2(String eventToast2) {
+        this.eventToast2 = eventToast2;
+    }
+
+    public String getEventToast3() {
+        return eventToast3;
+    }
+
+    public void setEventToast3(String eventToast3) {
+        this.eventToast3 = eventToast3;
+    }
+
+
 
     public double getNextEventID1() {
         return nextEventID1;

@@ -11,6 +11,34 @@ public class Player {
     private static double nextEventID2;
     private static double nextEventID3;
 
+    public static String getEventToast1() {
+        return eventToast1;
+    }
+
+    public static void setEventToast1(String eventToast1) {
+        Player.eventToast1 = eventToast1;
+    }
+
+    public static String getEventToast2() {
+        return eventToast2;
+    }
+
+    public static void setEventToast2(String eventToast2) {
+        Player.eventToast2 = eventToast2;
+    }
+
+    public static String getEventToast3() {
+        return eventToast3;
+    }
+
+    public static void setEventToast3(String eventToast3) {
+        Player.eventToast3 = eventToast3;
+    }
+
+    private static String eventToast1;
+    private static String eventToast2;
+    private static String eventToast3;
+
     public static double getCurrentEventID() {
         return currentEventID;
     }

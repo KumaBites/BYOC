@@ -1,6 +1,7 @@
 package com.kumabites.beyourowncaptain.GettingReady;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.kumabites.beyourowncaptain.StoryModel;
 
 import java.util.List;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -47,8 +49,9 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
                 String eventName1 = eventList.get(position).getEventChoice1();
                 Toast.makeText(context, eventName1 + " is selected", Toast.LENGTH_SHORT).show();
                 Player.setCurrentEventID(Player.getNextEventID1());
-                Intent intent = new Intent(context, Event.class);
-                context.startActivity(intent);
+                displayResult1();
+
+
 
 
             }
@@ -59,8 +62,7 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
                 String eventName2 = eventList.get(position).getEventChoice2();
                 Toast.makeText(context, eventName2 + " is selected", Toast.LENGTH_SHORT).show();
                 Player.setCurrentEventID(Player.getNextEventID2());
-                Intent intent = new Intent(context, Event.class);
-                context.startActivity(intent);
+                displayResult2();
             }
         });
         holder.eventChoice3.setOnClickListener(new View.OnClickListener() {
@@ -69,8 +71,7 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
                 String eventName3 = eventList.get(position).getEventChoice3();
                 Toast.makeText(context, eventName3 + " is selected", Toast.LENGTH_SHORT).show();
                 Player.setCurrentEventID(Player.getNextEventID3());
-                Intent intent = new Intent(context, Event.class);
-                context.startActivity(intent);
+                displayResult3();
             }
         });
     }
@@ -92,6 +93,51 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
             eventChoice2 = view.findViewById(R.id.choice_name2);
             eventChoice3 = view.findViewById(R.id.choice_name3);
         }
+    }
+    private void displayResult1() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Event Result");
+        builder.setMessage(Player.getEventToast1());
+        builder.setCancelable(false);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                Intent intent = new Intent(context, Event.class);
+                context.startActivity(intent);
+            }
+        });
+        builder.show();
+    }
+    private void displayResult2() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Event Result");
+        builder.setMessage(Player.getEventToast2());
+        builder.setCancelable(false);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                Intent intent = new Intent(context, Event.class);
+                context.startActivity(intent);
+            }
+        });
+        builder.show();
+    }
+    private void displayResult3() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Event Result");
+        builder.setMessage(Player.getEventToast3());
+        builder.setCancelable(false);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                Intent intent = new Intent(context, Event.class);
+                context.startActivity(intent);
+            }
+        });
+        builder.show();
     }
 }
 

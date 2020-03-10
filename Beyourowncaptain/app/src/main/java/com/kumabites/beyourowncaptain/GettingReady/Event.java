@@ -53,6 +53,9 @@ public class Event extends AppCompatActivity {
                Player.setNextEventID1(EM.getNextEventID1());
                Player.setNextEventID2(EM.getNextEventID2());
                Player.setNextEventID3(EM.getNextEventID3());
+               Player.setEventToast1(EM.getEventToast1());
+               Player.setEventToast2(EM.getEventToast2());
+               Player.setEventToast3(EM.getEventToast3());
             String eventName = EM.getEventName();
             Double eventID = EM.getEventId();
             String eventDescription = EM.getEventDescription();

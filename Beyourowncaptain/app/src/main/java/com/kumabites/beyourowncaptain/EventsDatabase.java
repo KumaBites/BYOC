@@ -5,6 +5,8 @@ import android.content.Context;
 import com.kumabites.beyourowncaptain.DAO.EventsDao;
 import com.kumabites.beyourowncaptain.ENTITY.Events;
 
+import java.io.File;
+
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
@@ -26,6 +28,7 @@ public abstract class EventsDatabase extends RoomDatabase {
                             EventsDatabase.class, "eventsdb")
                             .createFromAsset("Events.db")
                             .fallbackToDestructiveMigration()
+                            .allowMainThreadQueries()
                             .build();
                 }
                 }
