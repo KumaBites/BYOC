@@ -9,9 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.kumabites.beyourowncaptain.Player;
 import com.kumabites.beyourowncaptain.R;
-import com.kumabites.beyourowncaptain.StoryModel;
 
 import java.util.List;
 
@@ -19,26 +17,26 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecyclerViewAdapter.EventViewHolder> {
+public class Alan_EventRecyclerViewAdapter extends RecyclerView.Adapter<Alan_EventRecyclerViewAdapter.EventViewHolder> {
 
-    private List<EventModel> eventList;
+    private List<Alan_EventModel> eventList;
     Context context;
 
-    public EventRecyclerViewAdapter(List<EventModel> eventList, Context context) {
+    public Alan_EventRecyclerViewAdapter(List<Alan_EventModel> eventList, Context context) {
         this.eventList = eventList;
         this.context = context;
     }
 
     @Override
-    public EventRecyclerViewAdapter.EventViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public Alan_EventRecyclerViewAdapter.EventViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //inflate the layout file
         View EventModelView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_event, parent, false);
-        EventRecyclerViewAdapter.EventViewHolder gvh = new EventRecyclerViewAdapter.EventViewHolder(EventModelView);
+        Alan_EventRecyclerViewAdapter.EventViewHolder gvh = new Alan_EventRecyclerViewAdapter.EventViewHolder(EventModelView);
         return gvh;
     }
 
     @Override
-    public void onBindViewHolder(EventRecyclerViewAdapter.EventViewHolder holder, final int position) {
+    public void onBindViewHolder(Alan_EventRecyclerViewAdapter.EventViewHolder holder, final int position) {
 
         holder.eventChoice1.setText("Choice 1:"+(eventList.get(position).getEventChoice1()));
         holder.eventChoice2.setText("Choice 2 :"+(eventList.get(position).getEventChoice2()));
@@ -48,7 +46,7 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
             public void onClick(View v) {
                 String eventName1 = eventList.get(position).getEventChoice1();
                 Toast.makeText(context, eventName1 + " is selected", Toast.LENGTH_SHORT).show();
-                Player.setCurrentEventID(Player.getNextEventID1());
+                Alan_Player.setCurrentEventID(Alan_Player.getNextEventID1());
                 displayResult1();
 
 
@@ -61,7 +59,7 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
             public void onClick(View v) {
                 String eventName2 = eventList.get(position).getEventChoice2();
                 Toast.makeText(context, eventName2 + " is selected", Toast.LENGTH_SHORT).show();
-                Player.setCurrentEventID(Player.getNextEventID2());
+                Alan_Player.setCurrentEventID(Alan_Player.getNextEventID2());
                 displayResult2();
             }
         });
@@ -70,7 +68,7 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
             public void onClick(View v) {
                 String eventName3 = eventList.get(position).getEventChoice3();
                 Toast.makeText(context, eventName3 + " is selected", Toast.LENGTH_SHORT).show();
-                Player.setCurrentEventID(Player.getNextEventID3());
+                Alan_Player.setCurrentEventID(Alan_Player.getNextEventID3());
                 displayResult3();
             }
         });
@@ -96,14 +94,13 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
     }
     private void displayResult1() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Event Result");
-        builder.setMessage(Player.getEventToast1());
+        builder.setMessage(Alan_Player.getEventToast1());
         builder.setCancelable(false);
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                Intent intent = new Intent(context, Event.class);
+                Intent intent = new Intent(context, Alan_Event.class);
                 context.startActivity(intent);
             }
         });
@@ -111,14 +108,13 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
     }
     private void displayResult2() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Event Result");
-        builder.setMessage(Player.getEventToast2());
+        builder.setMessage(Alan_Player.getEventToast2());
         builder.setCancelable(false);
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                Intent intent = new Intent(context, Event.class);
+                Intent intent = new Intent(context, Alan_Event.class);
                 context.startActivity(intent);
             }
         });
@@ -126,14 +122,13 @@ public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecycler
     }
     private void displayResult3() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Event Result");
-        builder.setMessage(Player.getEventToast3());
+        builder.setMessage(Alan_Player.getEventToast3());
         builder.setCancelable(false);
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                Intent intent = new Intent(context, Event.class);
+                Intent intent = new Intent(context, Alan_Event.class);
                 context.startActivity(intent);
             }
         });

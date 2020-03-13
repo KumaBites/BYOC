@@ -23,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:paddingTop="5pt"
+                android:paddingTop="0pt"
                 android:paddingBottom="5pt"
                 android:textStyle="bold" />
             <TextView
@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/choice_name2"
                 android:paddingTop="5pt"
-                android:paddingBottom="5pt"
+                android:paddingBottom="0pt"
                 android:textStyle="bold" />
 
 

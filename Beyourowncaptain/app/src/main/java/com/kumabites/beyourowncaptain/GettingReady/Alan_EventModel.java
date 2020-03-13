@@ -1,6 +1,6 @@
 package com.kumabites.beyourowncaptain.GettingReady;
 
-public class EventModel {
+public class Alan_EventModel {
 
     private String eventName;
     private Double eventID;
@@ -45,7 +45,7 @@ public class EventModel {
 
 
 
-    public EventModel(String eventName, double eventID, String eventDescription, double eventChoiceID1, String eventChoice1, double eventChoiceID2, String eventChoice2, double eventChoiceID3, String eventChoice3){
+    public Alan_EventModel(String eventName, double eventID, String eventDescription, double eventChoiceID1, String eventChoice1, double eventChoiceID2, String eventChoice2, double eventChoiceID3, String eventChoice3){
         this.eventName = eventName;
         this.eventDescription = eventDescription;
         this.eventChoice1 = eventChoice1;

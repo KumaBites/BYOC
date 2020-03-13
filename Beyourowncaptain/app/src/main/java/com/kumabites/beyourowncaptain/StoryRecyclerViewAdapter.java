@@ -8,7 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.kumabites.beyourowncaptain.GettingReady.Event;
+import com.kumabites.beyourowncaptain.GettingReady.Alan_Event;
+import com.kumabites.beyourowncaptain.GettingReady.Alan_Player;
 
 import java.util.List;
 
@@ -44,9 +45,12 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
                 public void onClick(View v) {
                     String storyName = storyList.get(position).getStoryName();
                     Toast.makeText(context, storyName + " is selected", Toast.LENGTH_SHORT).show();
-                    Intent newI = new Intent(context, Event.class);
-                    Player.setCurrentEventID(1.0);
-                    context.startActivity(newI);
+                    String storyTimeClass1 = "Alan's Dilemma";
+                    if(storyName.equals(storyTimeClass1)) {
+                        Intent newStory = new Intent(context, Alan_Event.class);
+                        Alan_Player.setCurrentEventID(1.0);
+                        context.startActivity(newStory);
+                    }
                 }
             });
         }

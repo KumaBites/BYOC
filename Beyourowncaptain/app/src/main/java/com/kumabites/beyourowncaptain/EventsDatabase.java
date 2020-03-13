@@ -28,7 +28,6 @@ public abstract class EventsDatabase extends RoomDatabase {
                             EventsDatabase.class, "eventsdb")
                             .createFromAsset("Events.db")
                             .fallbackToDestructiveMigration()
-                            .allowMainThreadQueries()
                             .build();
                 }
                 }
