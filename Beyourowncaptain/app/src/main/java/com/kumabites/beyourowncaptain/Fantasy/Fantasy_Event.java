@@ -1,4 +1,4 @@
-package com.kumabites.beyourowncaptain.FantasyFuntime;
+package com.kumabites.beyourowncaptain.Fantasy;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;

@@ -5,116 +5,117 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class Fantasy_Events {
+
     @PrimaryKey
-    private double eventId;
+    private double fantasyEventId;
+    private String fantasyEventName;
+    private String fantasyEventDescription;
+    private double fantasyNextEventID1;
+    private String fantasyEventChoice1;
+    private double fantasyNextEventID2;
+    private String fantasyEventChoice2;
+    private double fantasyNextEventID3;
+    private String fantasyEventChoice3;
+    private String fantasyEventToast1;
+    private String fantasyEventToast2;
+    private String fantasyEventToast3;
 
-    public double getEventId() {
-        return eventId;
+    public double getFantasyEventId() {
+        return fantasyEventId;
     }
 
-    public void setEventId(double eventId) {
-        this.eventId = eventId;
+    public void setFantasyEventId(double fantasyEventId) {
+        this.fantasyEventId = fantasyEventId;
     }
 
-    public String getEventName() {
-        return eventName;
+    public String getFantasyEventName() {
+        return fantasyEventName;
     }
 
-    public void setEventName(String eventName) {
-        this.eventName = eventName;
+    public void setFantasyEventName(String fantasyEventName) {
+        this.fantasyEventName = fantasyEventName;
     }
 
-    public String getEventDescription() {
-        return eventDescription;
+    public String getFantasyEventDescription() {
+        return fantasyEventDescription;
     }
 
-    public void setEventDescription(String eventDescription) {
-        this.eventDescription = eventDescription;
+    public void setFantasyEventDescription(String fantasyEventDescription) {
+        this.fantasyEventDescription = fantasyEventDescription;
     }
 
-    public double getNextEventID1() {
-        return nextEventID1;
+    public double getFantasyNextEventID1() {
+        return fantasyNextEventID1;
     }
 
-    public void setNextEventID1(double nextEventID1) {
-        this.nextEventID1 = nextEventID1;
+    public void setFantasyNextEventID1(double fantasyNextEventID1) {
+        this.fantasyNextEventID1 = fantasyNextEventID1;
     }
 
-    public String getEventChoice1() {
-        return eventChoice1;
+    public String getFantasyEventChoice1() {
+        return fantasyEventChoice1;
     }
 
-    public void setEventChoice1(String eventChoice1) {
-        this.eventChoice1 = eventChoice1;
+    public void setFantasyEventChoice1(String fantasyEventChoice1) {
+        this.fantasyEventChoice1 = fantasyEventChoice1;
     }
 
-    public double getNextEventID2() {
-        return nextEventID2;
+    public double getFantasyNextEventID2() {
+        return fantasyNextEventID2;
     }
 
-    public void setNextEventID2(double nextEventID2) {
-        this.nextEventID2 = nextEventID2;
+    public void setFantasyNextEventID2(double fantasyNextEventID2) {
+        this.fantasyNextEventID2 = fantasyNextEventID2;
     }
 
-    public String getEventChoice2() {
-        return eventChoice2;
+    public String getFantasyEventChoice2() {
+        return fantasyEventChoice2;
     }
 
-    public void setEventChoice2(String eventChoice2) {
-        this.eventChoice2 = eventChoice2;
+    public void setFantasyEventChoice2(String fantasyEventChoice2) {
+        this.fantasyEventChoice2 = fantasyEventChoice2;
     }
 
-    public double getNextEventID3() {
-        return nextEventID3;
+    public double getFantasyNextEventID3() {
+        return fantasyNextEventID3;
     }
 
-    public void setNextEventID3(double nextEventID3) {
-        this.nextEventID3 = nextEventID3;
+    public void setFantasyNextEventID3(double fantasyNextEventID3) {
+        this.fantasyNextEventID3 = fantasyNextEventID3;
     }
 
-    public String getEventChoice3() {
-        return eventChoice3;
+    public String getFantasyEventChoice3() {
+        return fantasyEventChoice3;
     }
 
-    public void setEventChoice3(String eventChoice3) {
-        this.eventChoice3 = eventChoice3;
+    public void setFantasyEventChoice3(String fantasyEventChoice3) {
+        this.fantasyEventChoice3 = fantasyEventChoice3;
     }
 
-    public String getEventToast1() {
-        return eventToast1;
+    public String getFantasyEventToast1() {
+        return fantasyEventToast1;
     }
 
-    public void setEventToast1(String eventToast1) {
-        this.eventToast1 = eventToast1;
+    public void setFantasyEventToast1(String fantasyEventToast1) {
+        this.fantasyEventToast1 = fantasyEventToast1;
     }
 
-    public String getEventToast2() {
-        return eventToast2;
+    public String getFantasyEventToast2() {
+        return fantasyEventToast2;
     }
 
-    public void setEventToast2(String eventToast2) {
-        this.eventToast2 = eventToast2;
+    public void setFantasyEventToast2(String fantasyEventToast2) {
+        this.fantasyEventToast2 = fantasyEventToast2;
     }
 
-    public String getEventToast3() {
-        return eventToast3;
+    public String getFantasyEventToast3() {
+        return fantasyEventToast3;
     }
 
-    public void setEventToast3(String eventToast3) {
-        this.eventToast3 = eventToast3;
+    public void setFantasyEventToast3(String fantasyEventToast3) {
+        this.fantasyEventToast3 = fantasyEventToast3;
     }
 
-    private String eventName;
-    private String eventDescription;
-    private double nextEventID1;
-    private String eventChoice1;
-    private double nextEventID2;
-    private String eventChoice2;
 
-    private double nextEventID3;
-    private String eventChoice3;
-    private String eventToast1;
-    private String eventToast2;
-    private String eventToast3;
 
 }

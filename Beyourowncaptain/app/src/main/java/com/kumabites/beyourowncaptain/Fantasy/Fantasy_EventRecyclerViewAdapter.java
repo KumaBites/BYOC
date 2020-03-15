@@ -1,4 +1,4 @@
-package com.kumabites.beyourowncaptain.FantasyFuntime;
+package com.kumabites.beyourowncaptain.Fantasy;
 
 import android.content.Context;
 import android.content.DialogInterface;
