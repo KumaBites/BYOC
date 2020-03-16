@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kumabites.beyourowncaptain.R;
@@ -19,13 +20,23 @@ public class Fantasy_Battle extends AppCompatActivity {
     private int player_health, player_attack, player_defense, player_added_attack, player_added_defense;
     private int enemy_health, enemy_attack, enemy_defense, enemy_added_attack, enemy_added_defense;
     private int player_total_attack, player_total_defense, enemy_total_defense, enemy_total_attack;
-    private int battle_result;
+    private int pbattle_result, eBattle_result;
     private double nextEventId;
+    private TextView pHealth, pAttack, pDefense, eHealth, eAttack,eDefense;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fantasy_battle);
+
+        pHealth.findViewById(R.id.pHealth);
+        pAttack.findViewById(R.id.pAttack);
+        pDefense.findViewById(R.id.pDefense);
+
+        eHealth.findViewById(R.id.eHealthView);
+        eAttack.findViewById(R.id.eAttackView);
+        eDefense.findViewById(R.id.eDefenseView);
+
 
         player_health = Fantasy_Player.getHeath();
         player_attack = Fantasy_Player.getAttack();
@@ -36,13 +47,33 @@ public class Fantasy_Battle extends AppCompatActivity {
         enemy_attack = Fantasy_Enemy_Encounter.getEnemy_attack();
         enemy_defense= Fantasy_Enemy_Encounter.getEnemy_defense();
 
+        pHealth.setText(player_health);
+        pAttack.setText(player_attack);
+        pDefense.setText(player_defense);
+
+        eHealth.setText(enemy_health);
+        eAttack.setText(enemy_attack);
+        eDefense.setText(enemy_defense);
+
     }
     public void commenceAttack(View view) {
         final Intent died = new Intent(this, Story_Select.class);
         final Intent survive = new Intent(this,Fantasy_Event.class);
+        playerAttacks();
+        enemyAttacks();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("You did "+pbattle_result+" damage but the "+Fantasy_Enemy_Encounter.getEnemy_name()+" did "+eBattle_result+"damage!");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.show();
         if (player_health <= 0) {
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            AlertDialog.Builder diedBuilder = new AlertDialog.Builder(this);
             builder.setMessage("You have died!!! Oh well luck was one your side. Why not try again?");
             builder.setCancelable(false);
             builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -54,11 +85,11 @@ public class Fantasy_Battle extends AppCompatActivity {
 
                 }
             });
-            builder.show();
+            diedBuilder.show();
         }
         else if(enemy_health <= 0){
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            AlertDialog.Builder wonBuilder = new AlertDialog.Builder(this);
             builder.setMessage("You have won!! Congratulations! One with the adventure");
             builder.setCancelable(false);
             builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -69,12 +100,9 @@ public class Fantasy_Battle extends AppCompatActivity {
 
                 }
             });
-            builder.show();
+            wonBuilder.show();
         }
-        else{
-            playerAttacks();
-            enemyAttacks();
-        }
+
     }
 
 
@@ -85,8 +113,9 @@ public class Fantasy_Battle extends AppCompatActivity {
         enemy_added_defense = enemy_number.nextInt(1 - 6);
         player_total_attack = player_attack + player_added_attack;
         enemy_total_defense = enemy_defense + enemy_added_defense;
-        battle_result = enemy_total_defense - player_total_attack;
-        enemy_health = enemy_health - Math.abs(battle_result);
+        pbattle_result = enemy_total_defense - player_total_attack;
+        enemy_health = enemy_health - Math.abs(pbattle_result);
+        eHealth.setText(enemy_health);
 
     }
 
@@ -97,8 +126,9 @@ public class Fantasy_Battle extends AppCompatActivity {
         enemy_added_attack = enemy_number.nextInt(1 - 6);
         player_total_defense = player_defense + player_added_defense;
         enemy_total_attack = enemy_attack + enemy_added_attack;
-        battle_result = player_total_defense - enemy_total_attack;
-        player_health = player_health - Math.abs(battle_result);
-    }
+        eBattle_result = player_total_defense - enemy_total_attack;
+        player_health = player_health - Math.abs(eBattle_result);
+        pHealth.setText(player_health);
+  }
 
 }
