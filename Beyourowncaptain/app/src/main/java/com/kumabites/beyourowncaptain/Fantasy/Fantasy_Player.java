@@ -13,7 +13,7 @@ public class Fantasy_Player {
     private static int heath;
     private static int attack;
     private static int defense;
-
+    private static int enemyId;
     public static int getEnemyId() {
         return enemyId;
     }
@@ -22,7 +22,7 @@ public class Fantasy_Player {
         Fantasy_Player.enemyId = enemyId;
     }
 
-    private static int enemyId;
+
     public static int getHeath() {
         return heath;
     }

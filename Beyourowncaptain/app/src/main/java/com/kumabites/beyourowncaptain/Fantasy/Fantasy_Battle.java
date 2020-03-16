@@ -20,6 +20,7 @@ public class Fantasy_Battle extends AppCompatActivity {
     private int enemy_health, enemy_attack, enemy_defense, enemy_added_attack, enemy_added_defense;
     private int player_total_attack, player_total_defense, enemy_total_defense, enemy_total_attack;
     private int battle_result;
+    private double nextEventId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class Fantasy_Battle extends AppCompatActivity {
         player_health = Fantasy_Player.getHeath();
         player_attack = Fantasy_Player.getAttack();
         player_defense = Fantasy_Player.getDefense();
+        nextEventId = Fantasy_Enemy_Encounter.getNextEventId();
 
         enemy_health = Fantasy_Enemy_Encounter.getEnemy_health();
         enemy_attack = Fantasy_Enemy_Encounter.getEnemy_attack();
@@ -46,6 +48,7 @@ public class Fantasy_Battle extends AppCompatActivity {
             builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    Fantasy_Player.setCurrentEventID(nextEventId);
                     startActivity(died);
                     finish();
 
