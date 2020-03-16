@@ -14,6 +14,15 @@ public class Fantasy_Player {
     private static int attack;
     private static int defense;
 
+    public static int getEnemyId() {
+        return enemyId;
+    }
+
+    public static void setEnemyId(int enemyId) {
+        Fantasy_Player.enemyId = enemyId;
+    }
+
+    private static int enemyId;
     public static int getHeath() {
         return heath;
     }

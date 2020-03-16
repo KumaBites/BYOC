@@ -32,6 +32,7 @@ public class Fantasy_Event extends AppCompatActivity {
     private List<Events> allStoryEventList;
     private Fantasy_EventRecyclerViewAdapter eAdapter;
     private TextView descrption;
+    private int enemyId;
     private double currentEventID ,nextID, nextID2,nextID3;
     EventsDatabase eDatabase;
 
@@ -51,6 +52,12 @@ public class Fantasy_Event extends AppCompatActivity {
         storyEndAlert();
 
         }
+        else if(enemyId==1){
+            Intent battle = new Intent(this, Fantasy_Battle.class);
+            startActivity(battle);
+            finish();
+        }
+
         else {
             event.setLayoutManager(new LinearLayoutManager(this));
             ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -76,6 +83,8 @@ public class Fantasy_Event extends AppCompatActivity {
                 Fantasy_Player.setEventToast1(EM.getEventToast1());
                 Fantasy_Player.setEventToast2(EM.getEventToast2());
                 Fantasy_Player.setEventToast3(EM.getEventToast3());
+                enemyId =Fantasy_Player.getEnemyId();
+
                 descrption.setText(EM.getEventDescription());
                 String eventName = EM.getEventName();
                 Double eventID = EM.getEventId();

@@ -6,9 +6,28 @@ import androidx.room.PrimaryKey;
 public class Fantasy_Enemy {
     @PrimaryKey
     private int enemyId;
+    private String enemy_name;
     private int enemy_health;
     private int enemy_attack;
     private int enemy_defense;
+    private double nextEventId;
+    public String getEnemy_name() {
+        return enemy_name;
+    }
+
+    public void setEnemy_name(String enemy_name) {
+        this.enemy_name = enemy_name;
+    }
+
+    public double getNextEventId() {
+        return nextEventId;
+    }
+
+    public void setNextEventId(double nextEventId) {
+        this.nextEventId = nextEventId;
+    }
+
+
 
     public int getEnemyId() {
         return enemyId;
