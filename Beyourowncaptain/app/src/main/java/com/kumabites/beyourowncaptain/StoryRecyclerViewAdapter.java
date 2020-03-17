@@ -14,6 +14,7 @@ import com.kumabites.beyourowncaptain.GettingReady.Alan_Event;
 import com.kumabites.beyourowncaptain.GettingReady.Alan_Player;
 
 import java.util.List;
+import java.util.Random;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +23,7 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
         private String checkStoryName;
         private List<StoryModel> storyList;
         Context context;
+        private Random start_health, start_attack, start_defense;
 
         public StoryRecyclerViewAdapter(List<StoryModel> storyList, Context context) {
             this.storyList = storyList;
@@ -57,6 +59,11 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
                     if(storyName.equals(storyTimeClass2)) {
                         Intent newStory = new Intent(context, Fantasy_Event.class);
                         Fantasy_Player.setCurrentEventID(1.0);
+                        Fantasy_Player.setHeath(start_attack.nextInt(1-6));
+                        Fantasy_Player.setDefense(start_defense.nextInt(1-6));
+                        Fantasy_Player.setAttack(start_attack.nextInt(1-6));
+                        Fantasy_Player.setName("Pum Pum Bear");
+                        Fantasy_Player.setEnemyCheck(0);
                         context.startActivity(newStory);
                     }
                 }

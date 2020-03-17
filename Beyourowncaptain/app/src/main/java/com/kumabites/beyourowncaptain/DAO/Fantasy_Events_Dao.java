@@ -14,6 +14,6 @@ public interface Fantasy_Events_Dao {
     List<Fantasy_Events> getAllEvents();
 
     @Query("select * from Fantasy_Events where fantasyEventId like :eventId")
-    List<Fantasy_Events> getSelectEvent(int eventId);
+    List<Fantasy_Events> getSelectEvent(double eventId);
 }
 

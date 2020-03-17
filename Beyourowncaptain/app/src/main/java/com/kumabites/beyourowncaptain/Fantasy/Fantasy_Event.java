@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.kumabites.beyourowncaptain.ENTITY.Events;
+import com.kumabites.beyourowncaptain.ENTITY.Fantasy_Enemy;
+import com.kumabites.beyourowncaptain.ENTITY.Fantasy_Events;
 import com.kumabites.beyourowncaptain.EventsDatabase;
 import com.kumabites.beyourowncaptain.R;
 import com.kumabites.beyourowncaptain.Story_Select;
@@ -29,10 +31,11 @@ import androidx.recyclerview.widget.RecyclerView;
 public class Fantasy_Event extends AppCompatActivity {
     private RecyclerView event;
     private List<Fantasy_EventModel> currentEventList;
-    private List<Events> allStoryEventList;
+    private List<Fantasy_Events> allStoryEventList;
+    private List<Fantasy_Enemy> enemyEventList;
     private Fantasy_EventRecyclerViewAdapter eAdapter;
     private TextView descrption;
-    private int enemyId;
+    private int enemyId, enemyCheck;
     private double currentEventID ,nextID, nextID2,nextID3;
     EventsDatabase eDatabase;
 
@@ -46,24 +49,48 @@ public class Fantasy_Event extends AppCompatActivity {
         currentEventID = Fantasy_Player.getCurrentEventID();
         eDatabase = EventsDatabase.getDatabase(this);
         currentEventID = Fantasy_Player.getCurrentEventID();
+        enemyId = Fantasy_Enemy_Encounter.getEnemyId();
+        enemyCheck = Fantasy_Player.getEnemyCheck();
         if(currentEventID == 0.0)
         {
 
         storyEndAlert();
 
         }
-        else if(enemyId==1){
+        else if(enemyCheck==1){
             Intent battle = new Intent(this, Fantasy_Battle.class);
+
+            event.setLayoutManager(new LinearLayoutManager(this));
+            ExecutorService executorService = Executors.newSingleThreadExecutor();
+            getEnemyCallable newEvent = new getEnemyCallable();
+            Future<List<Fantasy_Enemy>> future = executorService.submit(newEvent);
+            List<Fantasy_Enemy> result = null;
+            try {
+                result = future.get();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            enemyEventList = result;
+            for(Fantasy_Enemy newEnemy : enemyEventList){
+               Fantasy_Enemy_Encounter.setEnemy_attack(newEnemy.getEnemy_attack());
+               Fantasy_Enemy_Encounter.setEnemy_health(newEnemy.getEnemy_health());
+               Fantasy_Enemy_Encounter.setEnemy_defense(newEnemy.getEnemy_defense());
+               Fantasy_Enemy_Encounter.setEnemy_name(newEnemy.getEnemy_name());
+               Fantasy_Enemy_Encounter.setNextEventId(newEnemy.getNextEventId());
+            }
             startActivity(battle);
             finish();
-        }
+
+            }
 
         else {
             event.setLayoutManager(new LinearLayoutManager(this));
             ExecutorService executorService = Executors.newSingleThreadExecutor();
-            getEventCallable newEvent = new getEventCallable();
-            Future<List<Events>> future = executorService.submit(newEvent);
-            List<Events> result = null;
+            getFantasyEventCallable newEvent = new getFantasyEventCallable();
+            Future<List<Fantasy_Events>> future = executorService.submit(newEvent);
+            List<Fantasy_Events> result = null;
             try {
                 result = future.get();
             } catch (ExecutionException e) {
@@ -73,28 +100,30 @@ public class Fantasy_Event extends AppCompatActivity {
             }
 
 
+
             allStoryEventList =result;
             currentEventList = new ArrayList<>();
 
-            for (Events EM : allStoryEventList) {
-                Fantasy_Player.setNextEventID1(EM.getNextEventID1());
-                Fantasy_Player.setNextEventID2(EM.getNextEventID2());
-                Fantasy_Player.setNextEventID3(EM.getNextEventID3());
-                Fantasy_Player.setEventToast1(EM.getEventToast1());
-                Fantasy_Player.setEventToast2(EM.getEventToast2());
-                Fantasy_Player.setEventToast3(EM.getEventToast3());
-                enemyId =Fantasy_Player.getEnemyId();
+            for (Fantasy_Events EM : allStoryEventList) {
+                Fantasy_Player.setNextEventID1(EM.getFantasyNextEventID1());
+                Fantasy_Player.setNextEventID2(EM.getFantasyNextEventID2());
+                Fantasy_Player.setNextEventID3(EM.getFantasyNextEventID3());
+                Fantasy_Player.setEventToast1(EM.getFantasyEventToast1());
+                Fantasy_Player.setEventToast2(EM.getFantasyEventToast2());
+                Fantasy_Player.setEventToast3(EM.getFantasyEventToast3());
+                enemyCheck = EM.getEnemyCheck();
+                Fantasy_Player.setEnemyCheck(enemyCheck);
 
-                descrption.setText(EM.getEventDescription());
-                String eventName = EM.getEventName();
-                Double eventID = EM.getEventId();
-                String eventDescription = EM.getEventDescription();
-                String eventChoice1 = EM.getEventChoice1();
-                String eventChoice2 = EM.getEventChoice2();
-                String eventChoice3 = EM.getEventChoice3();
-                double eventChoiceID1 = EM.getNextEventID1();
-                double eventChoiceID2 = EM.getNextEventID2();
-                double eventChoiceID3 = EM.getNextEventID3();
+                descrption.setText(EM.getFantasyEventDescription());
+                String eventName = EM.getFantasyEventName();
+                Double eventID = EM.getFantasyEventId();
+                String eventDescription = EM.getFantasyEventDescription();
+                String eventChoice1 = EM.getFantasyEventChoice1();
+                String eventChoice2 = EM.getFantasyEventChoice2();
+                String eventChoice3 = EM.getFantasyEventChoice3();
+                double eventChoiceID1 = EM.getFantasyNextEventID1();
+                double eventChoiceID2 = EM.getFantasyNextEventID2();
+                double eventChoiceID3 = EM.getFantasyNextEventID3();
                 currentEventList.add(new Fantasy_EventModel(eventName, eventID, eventDescription, eventChoiceID1, eventChoice1, eventChoiceID2, eventChoice2, eventChoiceID3, eventChoice3));
             }
 
@@ -119,19 +148,30 @@ public class Fantasy_Event extends AppCompatActivity {
         });
         builder.show();
     }
-    private class getEventCallable implements Callable<List<Events>>
+    private class getFantasyEventCallable implements Callable<List<Fantasy_Events>>
 
     {
-        List<Events> rList;
+        List<Fantasy_Events> rList;
         @Override
-        public List<Events> call(){
-           rList = eDatabase.eventsDao().getSelectEvent(currentEventID);
+        public List<Fantasy_Events> call(){
+           rList = eDatabase.fantasyDao().getSelectEvent(currentEventID);
 
             return rList;
 
         }
     }
+    private class getEnemyCallable implements Callable<List<Fantasy_Enemy>>
 
+    {
+        List<Fantasy_Enemy> rList;
+        @Override
+        public List<Fantasy_Enemy> call(){
+            rList = eDatabase.fantasyEnemyDao().getSelectEvent(enemyId);
+
+            return rList;
+
+        }
+    }
 
     public void quit (View view){
 
