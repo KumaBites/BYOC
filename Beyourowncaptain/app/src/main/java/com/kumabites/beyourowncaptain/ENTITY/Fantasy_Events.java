@@ -20,8 +20,15 @@ public class Fantasy_Events {
     private String fantasyEventToast2;
     private String fantasyEventToast3;
     private int enemyCheck;
+    private int enemyId;
 
+    public int getEnemyId() {
+        return enemyId;
+    }
 
+    public void setEnemyId(int enemyId) {
+        this.enemyId = enemyId;
+    }
 
     public int getEnemyCheck() {
         return enemyCheck;

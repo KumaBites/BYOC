@@ -87,9 +87,11 @@
         android:id="@+id/textView5"
         android:layout_width="127dp"
         android:layout_height="21dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginStart="11dp"
         android:layout_marginTop="80dp"
         android:text="@string/Health"
+        app:layout_constraintEnd_toStartOf="@+id/pHealthView"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -170,10 +172,12 @@
         android:layout_width="127dp"
         android:layout_height="21dp"
         android:layout_marginBottom="130dp"
+        android:layout_marginEnd="14dp"
         android:layout_marginStart="11dp"
         android:layout_marginTop="18dp"
         android:text="@string/Defense"
         app:layout_constraintBottom_toTopOf="@+id/eNameView"
+        app:layout_constraintEnd_toStartOf="@+id/pDefense"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 

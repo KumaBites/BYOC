@@ -49,7 +49,6 @@ public class Fantasy_Event extends AppCompatActivity {
         currentEventID = Fantasy_Player.getCurrentEventID();
         eDatabase = EventsDatabase.getDatabase(this);
         currentEventID = Fantasy_Player.getCurrentEventID();
-        enemyId = Fantasy_Enemy_Encounter.getEnemyId();
         enemyCheck = Fantasy_Player.getEnemyCheck();
         if(currentEventID == 0.0)
         {
@@ -59,28 +58,6 @@ public class Fantasy_Event extends AppCompatActivity {
         }
         else if(enemyCheck==1){
             Intent battle = new Intent(this, Fantasy_Battle.class);
-
-            event.setLayoutManager(new LinearLayoutManager(this));
-            ExecutorService executorService = Executors.newSingleThreadExecutor();
-            getEnemyCallable newEvent = new getEnemyCallable();
-            Future<List<Fantasy_Enemy>> future = executorService.submit(newEvent);
-            List<Fantasy_Enemy> result = null;
-            try {
-                result = future.get();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            enemyEventList = result;
-            for(Fantasy_Enemy newEnemy : enemyEventList){
-                Fantasy_Enemy_Encounter.setEnemyId(newEnemy.getEnemyId());
-               Fantasy_Enemy_Encounter.setEnemy_attack(newEnemy.getEnemy_attack());
-               Fantasy_Enemy_Encounter.setEnemy_health(newEnemy.getEnemy_health());
-               Fantasy_Enemy_Encounter.setEnemy_defense(newEnemy.getEnemy_defense());
-               Fantasy_Enemy_Encounter.setEnemy_name(newEnemy.getEnemy_name());
-               Fantasy_Enemy_Encounter.setNextEventId(newEnemy.getNextEventId());
-            }
             startActivity(battle);
             finish();
 
@@ -112,9 +89,11 @@ public class Fantasy_Event extends AppCompatActivity {
                 Fantasy_Player.setEventToast1(EM.getFantasyEventToast1());
                 Fantasy_Player.setEventToast2(EM.getFantasyEventToast2());
                 Fantasy_Player.setEventToast3(EM.getFantasyEventToast3());
+
                 enemyCheck = EM.getEnemyCheck();
                 Fantasy_Player.setEnemyCheck(enemyCheck);
-
+                enemyId = EM.getEnemyId();
+                Fantasy_Enemy_Encounter.setEnemyId(enemyId);
                 descrption.setText(EM.getFantasyEventDescription());
                 String eventName = EM.getFantasyEventName();
                 Double eventID = EM.getFantasyEventId();
@@ -161,18 +140,7 @@ public class Fantasy_Event extends AppCompatActivity {
 
         }
     }
-    private class getEnemyCallable implements Callable<List<Fantasy_Enemy>>
 
-    {
-        List<Fantasy_Enemy> rList;
-        @Override
-        public List<Fantasy_Enemy> call(){
-            rList = eDatabase.fantasyEnemyDao().getSelectEvent(enemyId);
-
-            return rList;
-
-        }
-    }
 
     public void quit (View view){
 
