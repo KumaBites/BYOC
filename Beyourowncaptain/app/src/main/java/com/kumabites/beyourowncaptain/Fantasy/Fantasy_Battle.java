@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -32,13 +33,15 @@ public class Fantasy_Battle extends AppCompatActivity {
     private double nextEventId;
     private TextView pHealth, pAttack, pDefense, eHealth, eAttack,eDefense ,pName,eName;
     EventsDatabase eDatabase;
-
+    MediaPlayer mediaPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fantasy_battle);
         eDatabase = EventsDatabase.getDatabase(this);
+        mediaPlayer = MediaPlayer.create(getApplicationContext(),R.raw.battle);
 
+        mediaPlayer.start();
         pName =findViewById(R.id.playerNameView);
         pHealth = findViewById(R.id.pHealthView);
         pAttack =findViewById(R.id.pAttack);
@@ -151,6 +154,7 @@ public class Fantasy_Battle extends AppCompatActivity {
           diedBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
               @Override
               public void onClick(DialogInterface dialog, int which) {
+                  mediaPlayer.release();;
                   Fantasy_Player.setCurrentEventID(nextEventId);
                   startActivity(died);
                   finish();
@@ -167,6 +171,7 @@ public class Fantasy_Battle extends AppCompatActivity {
           wonBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
               @Override
               public void onClick(DialogInterface dialog, int which) {
+                  mediaPlayer.release();
                   Fantasy_Player.setEnemyCheck(0);
                   startActivity(survive);
                   finish();
