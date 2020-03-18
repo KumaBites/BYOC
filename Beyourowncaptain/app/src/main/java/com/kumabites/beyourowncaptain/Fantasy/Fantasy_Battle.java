@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.kumabites.beyourowncaptain.R;
 import com.kumabites.beyourowncaptain.Story_Select;
@@ -21,6 +20,7 @@ public class Fantasy_Battle extends AppCompatActivity {
     private int enemy_health, enemy_attack, enemy_defense, enemy_added_attack, enemy_added_defense;
     private int player_total_attack, player_total_defense, enemy_total_defense, enemy_total_attack;
     private int pbattle_result, eBattle_result;
+    private  int enemyId;
     private double nextEventId;
     private TextView pHealth, pAttack, pDefense, eHealth, eAttack,eDefense;
 
@@ -29,13 +29,13 @@ public class Fantasy_Battle extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fantasy_battle);
 
-        pHealth.findViewById(R.id.pHealth);
-        pAttack.findViewById(R.id.pAttack);
-        pDefense.findViewById(R.id.pDefense);
+        pHealth = findViewById(R.id.pHealthView);
+        pAttack =findViewById(R.id.pAttack);
+        pDefense = findViewById(R.id.pDefense);
 
-        eHealth.findViewById(R.id.eHealthView);
-        eAttack.findViewById(R.id.eAttackView);
-        eDefense.findViewById(R.id.eDefenseView);
+        eHealth =findViewById(R.id.eHealthView);
+        eAttack =findViewById(R.id.eAttackView);
+        eDefense =findViewById(R.id.eDefenseView);
 
 
         player_health = Fantasy_Player.getHeath();
@@ -43,17 +43,18 @@ public class Fantasy_Battle extends AppCompatActivity {
         player_defense = Fantasy_Player.getDefense();
         nextEventId = Fantasy_Enemy_Encounter.getNextEventId();
 
+
         enemy_health = Fantasy_Enemy_Encounter.getEnemy_health();
         enemy_attack = Fantasy_Enemy_Encounter.getEnemy_attack();
         enemy_defense= Fantasy_Enemy_Encounter.getEnemy_defense();
 
-        pHealth.setText(player_health);
-        pAttack.setText(player_attack);
-        pDefense.setText(player_defense);
+        pHealth.setText(String.valueOf(player_health));
+        pAttack.setText(String.valueOf(player_attack));
+        pDefense.setText(String.valueOf(player_defense));
 
-        eHealth.setText(enemy_health);
-        eAttack.setText(enemy_attack);
-        eDefense.setText(enemy_defense);
+        eHealth.setText(String.valueOf(enemy_health));
+        eAttack.setText(String.valueOf(enemy_attack));
+        eDefense.setText(String.valueOf(enemy_defense));
 
     }
     public void commenceAttack(View view) {
@@ -67,7 +68,6 @@ public class Fantasy_Battle extends AppCompatActivity {
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
             }
         });
         builder.show();
@@ -109,26 +109,26 @@ public class Fantasy_Battle extends AppCompatActivity {
     public void playerAttacks() {
         player_number = new Random();
         enemy_number = new Random();
-        player_added_attack = player_number.nextInt(1 - 6);
-        enemy_added_defense = enemy_number.nextInt(1 - 6);
+        player_added_attack = player_number.nextInt(6);
+        enemy_added_defense = enemy_number.nextInt(6);
         player_total_attack = player_attack + player_added_attack;
         enemy_total_defense = enemy_defense + enemy_added_defense;
         pbattle_result = enemy_total_defense - player_total_attack;
         enemy_health = enemy_health - Math.abs(pbattle_result);
-        eHealth.setText(enemy_health);
+        eHealth.setText(String.valueOf(enemy_health));
 
     }
 
     public void enemyAttacks() {
         player_number = new Random();
         enemy_number = new Random();
-        player_added_defense = player_number.nextInt(1 - 6);
-        enemy_added_attack = enemy_number.nextInt(1 - 6);
+        player_added_defense = player_number.nextInt(6);
+        enemy_added_attack = enemy_number.nextInt(6);
         player_total_defense = player_defense + player_added_defense;
         enemy_total_attack = enemy_attack + enemy_added_attack;
         eBattle_result = player_total_defense - enemy_total_attack;
         player_health = player_health - Math.abs(eBattle_result);
-        pHealth.setText(player_health);
+        pHealth.setText(String.valueOf(player_health));
   }
 
 }

@@ -21,6 +21,8 @@ public class Fantasy_Events {
     private String fantasyEventToast3;
     private int enemyCheck;
 
+
+
     public int getEnemyCheck() {
         return enemyCheck;
     }

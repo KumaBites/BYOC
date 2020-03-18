@@ -11,6 +11,7 @@ public class Fantasy_Enemy {
     private int enemy_attack;
     private int enemy_defense;
     private double nextEventId;
+
     public String getEnemy_name() {
         return enemy_name;
     }

@@ -25,6 +25,7 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
         Context context;
         private Random start_health, start_attack, start_defense;
 
+
         public StoryRecyclerViewAdapter(List<StoryModel> storyList, Context context) {
             this.storyList = storyList;
             this.context = context;
@@ -59,9 +60,12 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
                     if(storyName.equals(storyTimeClass2)) {
                         Intent newStory = new Intent(context, Fantasy_Event.class);
                         Fantasy_Player.setCurrentEventID(1.0);
-                        Fantasy_Player.setHeath(start_attack.nextInt(1-6));
-                        Fantasy_Player.setDefense(start_defense.nextInt(1-6));
-                        Fantasy_Player.setAttack(start_attack.nextInt(1-6));
+                        start_health = new Random();
+                        start_defense = new Random();
+                        start_attack = new Random();
+                        Fantasy_Player.setHeath(start_attack.nextInt(6));
+                        Fantasy_Player.setDefense(start_defense.nextInt(6));
+                        Fantasy_Player.setAttack(start_attack.nextInt(6));
                         Fantasy_Player.setName("Pum Pum Bear");
                         Fantasy_Player.setEnemyCheck(0);
                         context.startActivity(newStory);

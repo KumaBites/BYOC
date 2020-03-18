@@ -74,6 +74,7 @@ public class Fantasy_Event extends AppCompatActivity {
             }
             enemyEventList = result;
             for(Fantasy_Enemy newEnemy : enemyEventList){
+                Fantasy_Enemy_Encounter.setEnemyId(newEnemy.getEnemyId());
                Fantasy_Enemy_Encounter.setEnemy_attack(newEnemy.getEnemy_attack());
                Fantasy_Enemy_Encounter.setEnemy_health(newEnemy.getEnemy_health());
                Fantasy_Enemy_Encounter.setEnemy_defense(newEnemy.getEnemy_defense());
