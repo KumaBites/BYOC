@@ -1,6 +1,7 @@
 package com.kumabites.beyourowncaptain.Fantasy;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,6 +39,7 @@ public class Fantasy_Event extends AppCompatActivity {
     private int enemyId, enemyCheck;
     private double currentEventID ,nextID, nextID2,nextID3;
     EventsDatabase eDatabase;
+    private static Activity activity;
 
 
     @Override
@@ -50,6 +52,7 @@ public class Fantasy_Event extends AppCompatActivity {
         eDatabase = EventsDatabase.getDatabase(this);
         currentEventID = Fantasy_Player.getCurrentEventID();
         enemyCheck = Fantasy_Player.getEnemyCheck();
+        activity = this;
         if(currentEventID == 0.0)
         {
 
@@ -153,6 +156,9 @@ public class Fantasy_Event extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
+    }
+    public static Activity getInstance(){
+        return  activity;
     }
 }
 

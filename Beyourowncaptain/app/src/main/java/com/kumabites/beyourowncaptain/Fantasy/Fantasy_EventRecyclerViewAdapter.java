@@ -1,5 +1,6 @@
 package com.kumabites.beyourowncaptain.Fantasy;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -99,7 +100,7 @@ public class Fantasy_EventRecyclerViewAdapter extends RecyclerView.Adapter<Fanta
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                Fantasy_Event.getInstance().finish();
                 Intent intent = new Intent(context, Fantasy_Event.class);
                 context.startActivity(intent);
             }
@@ -115,6 +116,7 @@ public class Fantasy_EventRecyclerViewAdapter extends RecyclerView.Adapter<Fanta
             public void onClick(DialogInterface dialog, int which) {
 
                 Intent intent = new Intent(context, Fantasy_Event.class);
+                Fantasy_Event.getInstance().finish();
                 context.startActivity(intent);
             }
         });
@@ -127,7 +129,7 @@ public class Fantasy_EventRecyclerViewAdapter extends RecyclerView.Adapter<Fanta
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                Fantasy_Event.getInstance().finish();
                 Intent intent = new Intent(context, Fantasy_Event.class);
                 context.startActivity(intent);
             }

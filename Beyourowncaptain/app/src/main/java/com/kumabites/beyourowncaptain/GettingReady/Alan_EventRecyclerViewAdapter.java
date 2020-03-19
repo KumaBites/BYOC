@@ -99,7 +99,7 @@ public class Alan_EventRecyclerViewAdapter extends RecyclerView.Adapter<Alan_Eve
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                Alan_Event.getInstance().finish();
                 Intent intent = new Intent(context, Alan_Event.class);
                 context.startActivity(intent);
             }
@@ -113,7 +113,7 @@ public class Alan_EventRecyclerViewAdapter extends RecyclerView.Adapter<Alan_Eve
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                Alan_Event.getInstance().finish();
                 Intent intent = new Intent(context, Alan_Event.class);
                 context.startActivity(intent);
             }
@@ -127,7 +127,7 @@ public class Alan_EventRecyclerViewAdapter extends RecyclerView.Adapter<Alan_Eve
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                Alan_Event.getInstance().finish();
                 Intent intent = new Intent(context, Alan_Event.class);
                 context.startActivity(intent);
             }

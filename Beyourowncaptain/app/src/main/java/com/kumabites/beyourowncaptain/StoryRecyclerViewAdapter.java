@@ -55,6 +55,7 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
                     if(storyName.equals(storyTimeClass1)) {
                         Intent newStory = new Intent(context, Alan_Event.class);
                         Alan_Player.setCurrentEventID(1.0);
+                        Story_Select.getInstance().finish();
                         context.startActivity(newStory);
                     }
                     if(storyName.equals(storyTimeClass2)) {
@@ -68,6 +69,7 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
                         Fantasy_Player.setAttack(start_attack.nextInt(6));
                         Fantasy_Player.setName("Pum Pum Bear");
                         Fantasy_Player.setEnemyCheck(0);
+                        Story_Select.getInstance().finish();
                         context.startActivity(newStory);
                     }
                 }

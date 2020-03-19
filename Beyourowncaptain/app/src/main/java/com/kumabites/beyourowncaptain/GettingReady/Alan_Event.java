@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -37,10 +39,12 @@ public class Alan_Event extends AppCompatActivity {
     private TextView descrption;
     private double currentEventID ,nextID, nextID2,nextID3;
     EventsDatabase eDatabase;
+    private static Activity alan_activity;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        alan_activity =  this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
         event = findViewById(R.id.EventRecyclerView);
@@ -138,6 +142,9 @@ public class Alan_Event extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
+    }
+    public static Activity getInstance (){
+        return alan_activity;
     }
 }
 
